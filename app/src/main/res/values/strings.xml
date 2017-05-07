@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Planmap-Beta</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+<string-array name="event_type">
+    <item>Hangout</item>
+    <item>Trips</item>
+    <item>Adventure</item>
+    <item>Hobby</item>
+    <item>Concerts</item>
+    <item>Other..please specify</item>
+</string-array>
+
+</resources>
