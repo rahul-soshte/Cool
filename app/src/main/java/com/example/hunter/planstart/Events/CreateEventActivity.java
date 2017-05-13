@@ -1,18 +1,32 @@
 package com.example.hunter.planstart.Events;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 
+import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
 import com.example.hunter.planstart.R;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity{
+    String[] SPINNERLIST = {"Hangout", "Adventure", "Trip","Hobby","Concert","Party","Other..Please Specify"};
+Button nextbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line,SPINNERLIST);
+        MaterialBetterSpinner materialDesignSpinner = (MaterialBetterSpinner)
+                findViewById(R.id.material_spinner1);
+        materialDesignSpinner.setAdapter(arrayAdapter);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,6 +48,14 @@ public class CreateEventActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickNext(View v)
+    {
+Intent intent=new Intent(CreateEventActivity.this,EventActivity.class);
+
+startActivity(intent);
+
     }
 
 }

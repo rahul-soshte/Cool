@@ -1,6 +1,5 @@
-package com.example.hunter.planstart;
+package com.example.hunter.planstart.Events.EventActivityClass;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,11 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.hunter.planstart.Events.CreateEventActivity;
-import com.example.hunter.planstart.TabLayout.Pager;
+import com.example.hunter.planstart.R;
 
-
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class EventActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     //This is our tablayout
     private TabLayout tabLayout;
 
@@ -22,9 +19,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_event);
+
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -33,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("My Events"));
-        tabLayout.addTab(tabLayout.newTab().setText("Events Feed"));
+        tabLayout.addTab(tabLayout.newTab().setText("Chat Room"));
+        tabLayout.addTab(tabLayout.newTab().setText("Venue"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         //Creating our pager adapter
-        Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
+        com.example.hunter.planstart.TabLayout.Pager adapter = new com.example.hunter.planstart.TabLayout.Pager(getSupportFragmentManager(), tabLayout.getTabCount());
 
         //Adding adapter to pager
         viewPager.setAdapter(adapter);
@@ -51,18 +48,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.setOnTabSelectedListener(this);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
-        //Intent intent = new Intent(MainActivity.this,googleSignActivity.class);
-
-        //startActivity(intent);
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_event, menu);
         return true;
     }
 
@@ -78,14 +69,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             return true;
         }
 
-        if(id==R.id.action_new_event)
-        {
-            Intent intent=new Intent(MainActivity.this, CreateEventActivity.class);
-            startActivity(intent);
-
-        }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
@@ -98,4 +84,5 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
 }

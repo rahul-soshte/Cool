@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "720284306859",
+    "project_id": "firebase-planstart"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720284306859:android:2cf2529378bb4f0d",
+        "android_client_info": {
+          "package_name": "com.example.hunter.planstart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720284306859-uc7or7qaq119vmjhjdhrfapru1hi4s6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hunter.planstart",
+            "certificate_hash": "85cf4d03c760ae8cdff3eea28b13f4e37a1d3182"
+          }
+        },
+        {
+          "client_id": "720284306859-biu8sqagen7an3nseep8a8qui721iivj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnh-_RWvGsW0vtqs_-fjb22CPj_1g0ffg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

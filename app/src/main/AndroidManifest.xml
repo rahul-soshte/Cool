@@ -12,23 +12,32 @@
         android:theme="@style/AppTheme.Dark">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="@string/app_name"></activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Login.LoginActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".Login.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
-
-        <activity android:name=".Events.CreateEventActivity"
+        <activity
+            android:name=".Events.CreateEventActivity"
             android:label="Create Event"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GoogleSignIn.googleSignActivity"
+            android:theme="@style/AppTheme.Dark">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Events.EventActivityClass.EventActivity"
+            android:label="Event Name"
+             />
+
     </application>
 
 </manifest>
