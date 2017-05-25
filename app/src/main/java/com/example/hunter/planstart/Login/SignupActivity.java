@@ -18,12 +18,12 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-
+    private static final String LOGIN_URL = "http://192.168.0.8/test/login.php";
     @Bind(R.id.input_firstname)
     EditText _firstnameText;
     @Bind(R.id.input_lastname) EditText _lastnameText;
     @Bind(R.id.input_email) EditText _emailText;
-    @Bind(R.id.input_mobile) EditText _mobileText;
+    //@Bind(R.id.input_mobile) EditText _mobileText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
     @Bind(R.id.btn_signup)
@@ -75,11 +75,12 @@ public class SignupActivity extends AppCompatActivity {
         String firstname = _firstnameText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+        //String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -112,7 +113,7 @@ public class SignupActivity extends AppCompatActivity {
         String firstname = _firstnameText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+       // String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
@@ -139,13 +140,13 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length()!=10) {
+      /*  if (mobile.isEmpty() || mobile.length()!=10) {
             _mobileText.setError("Enter Valid Mobile Number");
             valid = false;
         } else {
             _mobileText.setError(null);
         }
-
+*/
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
             _passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;

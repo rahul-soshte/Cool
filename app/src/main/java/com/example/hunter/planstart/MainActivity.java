@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.example.hunter.planstart.Events.CreateEventActivity;
 import com.example.hunter.planstart.TabLayout.Pager;
 
-
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     //This is our tablayout
     private TabLayout tabLayout;
@@ -52,10 +51,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+/*
+        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
 
-        //Intent intent = new Intent(MainActivity.this,googleSignActivity.class);
-
-        //startActivity(intent);
+        startActivity(intent);
+*/
 
     }
 
