@@ -1,6 +1,5 @@
 package com.example.hunter.planstart.Login;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -64,24 +63,27 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        _signupButton.setEnabled(false);
-
+       // _signupButton.setEnabled(false);
+/*
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-
+*/
         String firstname = _firstnameText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String email = _emailText.getText().toString();
         //String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
+String type = "signup";
+        BackgroundWorker backgroundWorker=new BackgroundWorker(this);
+        backgroundWorker.execute(type,firstname,lastname,email,password);
 
         // TODO: Implement your own signup logic here.
 
-
+/*
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -91,7 +93,7 @@ public class SignupActivity extends AppCompatActivity {
                         // onSignupFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 3000);*/
     }
 
 

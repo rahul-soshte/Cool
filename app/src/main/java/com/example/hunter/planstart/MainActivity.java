@@ -10,9 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hunter.planstart.Events.CreateEventActivity;
+import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.TabLayout.Pager;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+    //SessionManager instance
+    SessionManager session;
+
     //This is our tablayout
     private TabLayout tabLayout;
 
@@ -21,9 +25,19 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Session class instance
+        session = new SessionManager(getApplicationContext());
+
+        /**
+         * Call this function whenever you want to check user login
+         * This will redirect user to LoginActivity is he is not
+         * logged in
+         * */
+        session.checkLogin();
+
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,12 +65,18 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+
 /*
         Intent intent = new Intent(MainActivity.this,LoginActivity.class);
 
         startActivity(intent);
 */
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
@@ -84,6 +104,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             startActivity(intent);
 
         }
+        if(id==R.id.action_log_out)
+        {
+            session.logoutUser();
+        }
+
         return super.onOptionsItemSelected(item);
     }
     @Override

@@ -18,6 +18,9 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
     public static boolean wassuccessful=false;
 
+    // Session Manager Class
+    //public SessionManager session;
+
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
@@ -30,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Session Manager
+      //  session = new SessionManager(getApplicationContext());
+
         ButterKnife.bind(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
         BackgroundWorker backgroundWorker=new BackgroundWorker(this);
         backgroundWorker.execute(type,email,password);
+
 /*
 if(wassuccessful) {
 
@@ -98,6 +106,7 @@ if(wassuccessful) {
                     }
                 }, 3000);
                 */
+
     }
 
 
