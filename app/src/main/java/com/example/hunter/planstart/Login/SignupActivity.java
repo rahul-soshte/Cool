@@ -1,6 +1,9 @@
 package com.example.hunter.planstart.Login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -78,11 +81,15 @@ public class SignupActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 String type = "signup";
-        BackgroundWorker backgroundWorker=new BackgroundWorker(this);
-        backgroundWorker.execute(type,firstname,lastname,email,password);
 
         // TODO: Implement your own signup logic here.
-
+if(isOnline()) {
+    BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+    backgroundWorker.execute(type, firstname, lastname, email, password);
+}
+else{
+    Toast.makeText(getBaseContext(), "No Signal or Server Down or Not Connected", Toast.LENGTH_LONG).show();
+}
 /*
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -164,5 +171,30 @@ String type = "signup";
         }
 
         return valid;
+    }
+
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 }

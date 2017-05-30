@@ -1,6 +1,9 @@
 package com.example.hunter.planstart.Login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.R;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -84,10 +92,22 @@ public class LoginActivity extends AppCompatActivity {
         // TODO: Implement your own authentication logic here.
 
         String type="login";
+        boolean Yes;
 
-        BackgroundWorker backgroundWorker=new BackgroundWorker(this);
-        backgroundWorker.execute(type,email,password);
+        if(isOnline()) {
 
+             //   if (isReachable("192.168.42.151",80,3000)) {
+                    BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+                    backgroundWorker.execute(type, email, password);
+               // }
+//else{
+  //     Toast.makeText(getBaseContext(),"LOL not working",Toast.LENGTH_LONG).
+    //            }
+        }
+        else{
+            //onLoginFailed();
+            Toast.makeText(getBaseContext(), "Server Down or Signal Down or Not Connected", Toast.LENGTH_LONG).show();
+        }
 /*
 if(wassuccessful) {
 
@@ -159,5 +179,41 @@ if(wassuccessful) {
             _passwordText.setError(null);
         }
         return valid;
+    }
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
+    public static boolean isReachable(String addr, int openPort, int timeOutMillis) {
+        // Any Open port on other machine
+        // openPort =  22 - ssh, 80 or 443 - webserver, 25 - mailserver etc.
+        try {
+            try (Socket soc = new Socket()) {
+                soc.connect(new InetSocketAddress(addr, openPort), timeOutMillis);
+            }
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
     }
 }

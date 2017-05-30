@@ -26,6 +26,7 @@ import java.net.URLEncoder;
 
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
+
     AlertDialog alertDialog;
 String Error="error";
 
@@ -46,9 +47,17 @@ String Error="error";
                 String user_email=params[1];
                 String pass_word=params[2];
 
+                if (!(LoginActivity.isReachable("192.168.42.151",80,2000)))
+                {
+                    return "Not Connected or Server Down or No Signal";
+
+                }
+
                 URL url=new URL(login_url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
+
+
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
@@ -73,6 +82,7 @@ String Error="error";
                 inputStream.close();
                 httpURLConnection.disconnect();
                 return result;
+
             } catch (MalformedURLException e) {
              return Error;
             } catch (IOException e) {
@@ -82,9 +92,6 @@ String Error="error";
             {
                 return Error;
             }
-
-
-
 
         }
         else if(type.equals("signup"))
@@ -101,8 +108,26 @@ String Error="error";
                 URL url=new URL(signup_url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
+
+             //   httpURLConnection.connect();
+
+       //         int statusCode = httpURLConnection.getResponseCode();
+              //  return statusCode+"";
+
+         //       if(statusCode == 200){
+               //     cancel(true);
+           //     }
+
+                if (!(LoginActivity.isReachable("192.168.42.151",80,2000)))
+                {
+                    return "Not Connected or Server Down or No Signal";
+
+                }
+
+
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoInput(true);
+
                 OutputStream outputStream=httpURLConnection.getOutputStream();
 
                 BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
@@ -171,15 +196,17 @@ String Error="error";
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
             Toast.makeText(context, "Account Created Successfully", Toast.LENGTH_LONG).show();
-
         }
+
         if (result.equals("error")) {
-            Toast.makeText(context, "Something Went Wrong!Try Again!", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Something went Wrong", Toast.LENGTH_LONG).show();
         }
-        if (result.equals("")) {
 
+        if(result.equals("Not Connected or Server Down or No Signal")) {
+            Toast.makeText(context,"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
         }
     }
+
 
     @Override
     protected void onProgressUpdate(Void... values) {
