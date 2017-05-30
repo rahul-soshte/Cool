@@ -27,6 +27,7 @@ import java.net.URLEncoder;
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
     AlertDialog alertDialog;
+String Error="error";
 
     BackgroundWorker(Context ctx)
     {
@@ -41,7 +42,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
         if(type.equals("login"))
         {
-            try {String user_email=params[1];
+            try {
+                String user_email=params[1];
                 String pass_word=params[2];
 
                 URL url=new URL(login_url);
@@ -72,10 +74,16 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 httpURLConnection.disconnect();
                 return result;
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+             return Error;
             } catch (IOException e) {
-                e.printStackTrace();
+                return Error;
             }
+            catch (Exception e)
+            {
+                return Error;
+            }
+
+
 
 
         }
@@ -121,13 +129,18 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 httpURLConnection.disconnect();
                 return result_signup;
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                return Error;
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+             return Error;
+            }
+            catch(Exception e)
+            {
+                return Error;
             }
 
         }
-        return null;
+        return Error;
     }
 
     @Override
@@ -144,25 +157,29 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         //alertDialog.setMessage(result);
         //alertDialog.show();
 
-if(result.equals("Welcome user!"))
-{
-    SessionManager session=new SessionManager(context);
-    session.createLoginSession("Bro","Bro");
+        if (result.equals("Welcome user!")) {
+            SessionManager session = new SessionManager(context);
+            session.createLoginSession("Bro", "Bro");
 //LoginActivity.wassuccessful=true;
-    Intent intent=new Intent(context, MainActivity.class);
-    context.startActivity(intent);
-    ((LoginActivity)context).finish();
+            //    Intent intent=new Intent(context, MainActivity.class);
+            //  context.startActivity(intent);
+            ((LoginActivity) context).finish();
 
-}
-if(result.equals("Insert success")) {
+        }
+        if (result.equals("Insert success")) {
 
-        Intent intent=new Intent(context,MainActivity.class);
-        context.startActivity(intent);
-        Toast.makeText(context,"Account Created Successfully",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+            Toast.makeText(context, "Account Created Successfully", Toast.LENGTH_LONG).show();
 
-}
+        }
+        if (result.equals("error")) {
+            Toast.makeText(context, "Something Went Wrong!Try Again!", Toast.LENGTH_LONG).show();
+        }
+        if (result.equals("")) {
+
+        }
     }
-
 
     @Override
     protected void onProgressUpdate(Void... values) {

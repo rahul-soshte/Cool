@@ -91,6 +91,7 @@ public class SessionManager {
             // Staring Login Activity
             _context.startActivity(i);
 
+
         }
     }
 
@@ -112,6 +113,7 @@ public class SessionManager {
 
         // Staring Login Activity
         _context.startActivity(i);
+
     }
     /**
      * Quick check for login
