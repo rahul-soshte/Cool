@@ -221,6 +221,7 @@ String Error="error";
             Toast.makeText(context,"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
         }
 
+        Toast.makeText(context,result, Toast.LENGTH_LONG).show();
     }
 
 
