@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
 import butterknife.Bind;
@@ -101,6 +102,14 @@ else{
                         progressDialog.dismiss();
                     }
                 }, 3000);*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent =new Intent(SignupActivity.this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 

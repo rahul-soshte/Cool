@@ -47,7 +47,7 @@ String Error="error";
                 String user_email=params[1];
                 String pass_word=params[2];
 
-                if (!(LoginActivity.isReachable("192.168.42.151",80,2000)))
+                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
 
@@ -118,7 +118,7 @@ String Error="error";
                //     cancel(true);
            //     }
 
-                if (!(LoginActivity.isReachable("192.168.42.151",80,2000)))
+                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
 
@@ -186,16 +186,31 @@ String Error="error";
             SessionManager session = new SessionManager(context);
             session.createLoginSession("Bro", "Bro");
 //LoginActivity.wassuccessful=true;
-            //    Intent intent=new Intent(context, MainActivity.class);
-            //  context.startActivity(intent);
-            ((LoginActivity) context).finish();
+            Intent intent=new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            //context.startActivity(intent);
+
+
+
+            context.startActivity(intent);
+
+//            ((LoginActivity) context).finish();
 
         }
         if (result.equals("Insert success")) {
 
+            SessionManager session = new SessionManager(context);
+            session.createLoginSession("Bro", "Bro");
             Intent intent = new Intent(context, MainActivity.class);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
             context.startActivity(intent);
             Toast.makeText(context, "Account Created Successfully", Toast.LENGTH_LONG).show();
+
         }
 
         if (result.equals("error")) {
@@ -205,6 +220,7 @@ String Error="error";
         if(result.equals("Not Connected or Server Down or No Signal")) {
             Toast.makeText(context,"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
         }
+
     }
 
 

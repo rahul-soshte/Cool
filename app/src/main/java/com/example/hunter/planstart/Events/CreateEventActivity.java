@@ -52,10 +52,9 @@ Button nextbutton;
 
     public void onClickNext(View v)
     {
+
 Intent intent=new Intent(CreateEventActivity.this,EventActivity.class);
-
 startActivity(intent);
-
     }
 
 }
