@@ -26,6 +26,8 @@ import java.net.URLEncoder;
 
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
+String user_email;
+
 
     AlertDialog alertDialog;
 String Error="error";
@@ -44,7 +46,7 @@ String Error="error";
         if(type.equals("login"))
         {
             try {
-                String user_email=params[1];
+                user_email=params[1];
                 String pass_word=params[2];
 
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
@@ -101,7 +103,7 @@ String Error="error";
 
                 String lname = params[2];
 
-                String user_email = params[3];
+                user_email = params[3];
 
                 //String mobile =
                 String pass_word = params[4];
@@ -184,16 +186,12 @@ String Error="error";
 
         if (result.equals("Welcome user!")) {
             SessionManager session = new SessionManager(context);
-            session.createLoginSession("Bro", "Bro");
+            session.createLoginSession("User",user_email);
 //LoginActivity.wassuccessful=true;
             Intent intent=new Intent(context, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
             //context.startActivity(intent);
-
-
-
             context.startActivity(intent);
 
 //            ((LoginActivity) context).finish();
@@ -202,7 +200,7 @@ String Error="error";
         if (result.equals("Insert success")) {
 
             SessionManager session = new SessionManager(context);
-            session.createLoginSession("Bro", "Bro");
+            session.createLoginSession("User",user_email);
             Intent intent = new Intent(context, MainActivity.class);
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -223,7 +221,6 @@ String Error="error";
 
         Toast.makeText(context,result, Toast.LENGTH_LONG).show();
     }
-
 
     @Override
     protected void onProgressUpdate(Void... values) {

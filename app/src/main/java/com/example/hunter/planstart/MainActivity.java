@@ -13,6 +13,8 @@ import com.example.hunter.planstart.Events.CreateEventActivity;
 import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.TabLayout.Pager;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     //SessionManager instance
     SessionManager session;
@@ -37,6 +39,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
          * logged in
          * */
         session.checkLogin();
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+
+        // email
+        String email = user.get(SessionManager.KEY_EMAIL);
+
+      //  Toast.makeText(this,email,Toast.LENGTH_LONG).show();
 
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
