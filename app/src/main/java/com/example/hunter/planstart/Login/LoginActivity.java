@@ -13,10 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hunter.planstart.BackgroundWorker;
 import com.example.hunter.planstart.R;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         // TODO: Implement your own authentication logic here.
 
         String type="login";
-        boolean Yes;
+
 
         if(isOnline()) {
 

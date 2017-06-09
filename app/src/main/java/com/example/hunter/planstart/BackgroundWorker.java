@@ -1,4 +1,4 @@
-package com.example.hunter.planstart.Login;
+package com.example.hunter.planstart;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.example.hunter.planstart.MainActivity;
+import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
+import com.example.hunter.planstart.Login.LoginActivity;
+import com.example.hunter.planstart.Login.SessionManager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -32,7 +34,7 @@ String user_email;
     AlertDialog alertDialog;
 String Error="error";
 
-    BackgroundWorker(Context ctx)
+    public BackgroundWorker(Context ctx)
     {
         context=ctx;
 
@@ -42,6 +44,7 @@ String Error="error";
         String type=params[0];
         String login_url="http://192.168.42.151/Planmap/login.php";
         String signup_url="http://192.168.42.151/Planmap/signup.php";
+        String createevent_url="http://192.168.42.151/Planmap/createevent.php";
 
         if(type.equals("login"))
         {
@@ -167,6 +170,62 @@ String Error="error";
             }
 
         }
+        else if(type.equals("CreateEvent"))
+        {
+            try {
+                String eventname = params[1];
+                user_email=params[3];
+
+
+                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                {
+                    return "Not Connected or Server Down or No Signal";
+
+                }
+
+                URL url=new URL(createevent_url);
+                HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+
+
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream=httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String post_data= URLEncoder.encode("eventname","UTF-8")+"="+URLEncoder.encode(eventname,"UTF-8")+"&"
+                        +URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream=httpURLConnection.getInputStream();
+                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+
+                while((line=bufferedReader.readLine())!=null)
+                {
+                    result+=line;
+
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                return Error;
+            } catch (IOException e) {
+                return Error;
+            }
+            catch (Exception e)
+            {
+                return Error;
+            }
+        }
         return Error;
     }
 
@@ -217,6 +276,13 @@ String Error="error";
 
         if(result.equals("Not Connected or Server Down or No Signal")) {
             Toast.makeText(context,"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
+        }
+        if(result.equals("Event Created"))
+        {
+            Intent intent=new Intent(context,EventActivity.class);
+            context.startActivity(intent);
+            Toast.makeText(context,"Event Created", Toast.LENGTH_LONG).show();
+
         }
 
         Toast.makeText(context,result, Toast.LENGTH_LONG).show();

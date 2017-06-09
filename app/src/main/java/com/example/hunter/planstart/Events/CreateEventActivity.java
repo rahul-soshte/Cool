@@ -1,6 +1,8 @@
 package com.example.hunter.planstart.Events;
 
-import android.content.Intent;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,24 +10,52 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
+import com.example.hunter.planstart.BackgroundWorker;
+import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.R;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.util.HashMap;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class CreateEventActivity extends AppCompatActivity{
-    String[] SPINNERLIST = {"Hangout", "Adventure", "Trip","Hobby","Concert","Party","Other..Please Specify"};
-Button nextbutton;
+    String[] SPINNERLIST = {"Hangout","Trip"};
+    SessionManager session;
+    Button nextbutton;
+    String email;
+    @Bind(R.id.input_eventname)EditText eventname;
+    @Bind(R.id.next_button)Button createbutton;
+    @Bind(R.id.material_spinner1)MaterialBetterSpinner eventtype;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        session = new SessionManager(getApplicationContext());
+
+        ButterKnife.bind(this);
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line,SPINNERLIST);
-        MaterialBetterSpinner materialDesignSpinner = (MaterialBetterSpinner)
-                findViewById(R.id.material_spinner1);
-        materialDesignSpinner.setAdapter(arrayAdapter);
+//        eventtype = (MaterialBetterSpinner)
+  //              findViewById(R.id.material_spinner1);
+        eventtype.setAdapter(arrayAdapter);
+
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        //String name = user.get(SessionManager.KEY_NAME);
+
+        // email
+         email = user.get(SessionManager.KEY_EMAIL);
 
     }
     @Override
@@ -50,11 +80,29 @@ Button nextbutton;
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickNext(View v)
+    public void onClickCreate(View v)
     {
+String event= eventname.getText().toString();
+        //String eventdesc=eventtype.get
+        String eventdesc=String.valueOf(eventtype.getListSelection());
+        String type="CreateEvent";
+if(isOnline()) {
+    BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+    backgroundWorker.execute(type, event, eventdesc,email);
+}
+else{
+    Toast.makeText(this,"No Internet!",Toast.LENGTH_LONG).show();
+    }
 
-Intent intent=new Intent(CreateEventActivity.this,EventActivity.class);
-startActivity(intent);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 
 }

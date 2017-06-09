@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/next_button"
         android:layout_gravity="center"
-        android:text="NEXT"
-        android:onClick="onClickNext"
+        android:text="CREATE EVENT"
+        android:onClick="onClickCreate"
         />
 
 </LinearLayout>

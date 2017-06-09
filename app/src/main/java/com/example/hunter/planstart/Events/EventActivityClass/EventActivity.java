@@ -1,5 +1,6 @@
 package com.example.hunter.planstart.Events.EventActivityClass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
 public class EventActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
@@ -55,6 +57,13 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event, menu);
         return true;
+    }
+
+    public void onBackPressed() {
+        Intent intent=new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
