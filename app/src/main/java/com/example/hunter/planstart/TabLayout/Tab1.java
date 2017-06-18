@@ -4,7 +4,7 @@ package com.example.hunter.planstart.TabLayout;
  * Created by hunter on 7/5/17.
  */
 
-import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +20,12 @@ import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -50,11 +56,69 @@ SessionManager session;
     {
         super.onActivityCreated(savedInstanceState);
         EventList=(ListView)getActivity().findViewById(R.id.list);
-        Resources res=getResources();
-        String [] events=res.getStringArray(R.array.event_list);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,android.R.id.text1,events);
-        EventList.setAdapter(adapter);
+        //Resources res=getResources();
+        //String [] events=res.getStringArray(R.array.event_list);
+        //ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,android.R.id.text1,events);
+        //EventList.setAdapter(adapter);
+        ReadLocalJson readLocalJson=new ReadLocalJson();
+        readLocalJson.execute();
+
+        
     }
+
+    public class ReadLocalJson extends AsyncTask<String,String,String>
+    {
+        ArrayList<String> value_array=new ArrayList<String>();
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String json=null;
+            try {
+                InputStream is=getResources().openRawResource(R.raw.events);
+                int size=is.available();
+                byte[] buffer=new byte[size];
+                is.read(buffer);
+                is.close();
+                json=new String(buffer,"UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            JSONArray obj_array=null;
+
+            try {
+                obj_array=new JSONArray(json);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            for(int i=0;i<obj_array.length();i++)
+            {
+                JSONObject json_data=null;
+
+                try {
+                    json_data=obj_array.getJSONObject(i);
+                    value_array.add(json_data.getString("EventName"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+
+
+        }
+        @Override
+        protected void onPostExecute(String s)
+        {
+            super.onPostExecute(s);
+            ArrayAdapter adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,android.R.id.text1,value_array);
+            EventList.setAdapter(adapter);
+        }
+    }
+
 /*
 @Override
     public void onCreate(Bundle savedInstanceState) {
