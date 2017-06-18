@@ -41,7 +41,7 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         viewPager = (ViewPager) findViewById(R.id.pager);
 
         //Creating our pager adapter
-        com.example.hunter.planstart.TabLayout.Pager adapter = new com.example.hunter.planstart.TabLayout.Pager(getSupportFragmentManager(), tabLayout.getTabCount());
+        com.example.hunter.planstart.Events.EventActivityClass.Pager adapter = new com.example.hunter.planstart.Events.EventActivityClass.Pager(getSupportFragmentManager(), tabLayout.getTabCount());
 
         //Adding adapter to pager
         viewPager.setAdapter(adapter);

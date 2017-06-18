@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.example.hunter.planstart.BackgroundWorker;
 import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.R;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.HashMap;
 
@@ -24,13 +22,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CreateEventActivity extends AppCompatActivity{
-    String[] SPINNERLIST = {"Hangout","Trip"};
+ //   String[] SPINNERLIST = {"Hangout","Trip"};
     SessionManager session;
     Button nextbutton;
     String email;
     @Bind(R.id.input_eventname)EditText eventname;
     @Bind(R.id.next_button)Button createbutton;
-    @Bind(R.id.material_spinner1)MaterialBetterSpinner eventtype;
+   // @Bind(R.id.material_spinner1)MaterialBetterSpinner eventtype;
 
 
     @Override
@@ -43,11 +41,11 @@ public class CreateEventActivity extends AppCompatActivity{
 
         ButterKnife.bind(this);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line,SPINNERLIST);
+     //   ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+       //         android.R.layout.simple_dropdown_item_1line,SPINNERLIST);
 //        eventtype = (MaterialBetterSpinner)
   //              findViewById(R.id.material_spinner1);
-        eventtype.setAdapter(arrayAdapter);
+        //eventtype.setAdapter(arrayAdapter);
 
         HashMap<String, String> user = session.getUserDetails();
 
@@ -84,11 +82,11 @@ public class CreateEventActivity extends AppCompatActivity{
     {
 String event= eventname.getText().toString();
         //String eventdesc=eventtype.get
-        String eventdesc=String.valueOf(eventtype.getListSelection());
+//        String eventdesc=String.valueOf(eventtype.getListSelection());
         String type="CreateEvent";
 if(isOnline()) {
     BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-    backgroundWorker.execute(type, event, eventdesc,email);
+    backgroundWorker.execute(type, event,email);
 }
 else{
     Toast.makeText(this,"No Internet!",Toast.LENGTH_LONG).show();

@@ -39,16 +39,6 @@ public class EventsOne {
         return event_name;
     }
 
-    public void addUser(UserOne u1)
-    {
 
-        UsersList.add(u1);
-    }
-
-    public void removeUser(UserOne u1)
-    {
-        UsersList.remove(u1);
-
-    }
 
 }

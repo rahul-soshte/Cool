@@ -75,14 +75,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.setOnTabSelectedListener(this);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-
-/*
-        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-
-        startActivity(intent);
-*/
-
     }
 
     @Override
@@ -134,4 +126,5 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
 }

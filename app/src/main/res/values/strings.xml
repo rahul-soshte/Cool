@@ -12,6 +12,13 @@
         <item>Other..please specify</item>
     </string-array>
 
+    <string-array name="event_list">
+        <item>Vignesh ka Bday</item>
+        <item>Nightout at Marines</item>
+        <item>Kothligad Fort</item>
+        <item>Cycling</item>
+        <item>Ed Sheeran Concert</item>
+    </string-array>
 
     <string name="title_text">PlanMapSignInDemo</string>
 

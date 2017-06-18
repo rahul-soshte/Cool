@@ -45,6 +45,8 @@ String Error="error";
         String login_url="http://192.168.42.151/Planmap/login.php";
         String signup_url="http://192.168.42.151/Planmap/signup.php";
         String createevent_url="http://192.168.42.151/Planmap/createevent.php";
+        String listevents_url="http://192.168.42.151/Planmap/events_json.php";
+
 
         if(type.equals("login"))
         {
@@ -174,7 +176,7 @@ String Error="error";
         {
             try {
                 String eventname = params[1];
-                user_email=params[3];
+                user_email=params[2];
 
 
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
@@ -186,7 +188,6 @@ String Error="error";
                 URL url=new URL(createevent_url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
-
 
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoInput(true);
@@ -226,6 +227,85 @@ String Error="error";
                 return Error;
             }
         }
+       /*
+        else if(type.equals("ListEvents"))
+        {
+            user_email=params[1];
+
+            HttpHandler sh=new HttpHandler();
+            //Making a request to url and getting response
+            String url=listevents_url;
+
+            String jsonStr=sh.makeServiceCall(url);
+
+            Log.e(TAG,"Response from url: "+jsonStr);
+            if(jsonStr!=null)
+            {
+                try{
+                    JSONObject jsonObj=new JSONObject(jsonStr);
+                    //Getting JSON Array node
+                    JSONArray results=jsonObj.getJSONArray("results");
+
+                    for(int i=0;i<results.length();i++)
+                    {
+                        JSONObject c=results.getJSONObject(i);
+                        //  String id=c.getString("id");
+                        String name=c.getString("name");
+                        String place_id=c.getString("place_id");
+
+                        // String address=c.getString("address");
+                        // String gender=c.getString("gender");
+                        //pHone node is JSON object
+                        //JSONObject phone=c.getJSONObject("phone");
+                        JSONObject geometry=c.getJSONObject("geometry");
+                        JSONObject location=geometry.getJSONObject("location");
+                        double lat=location.getDouble("lat");
+                        double longi=location.getDouble("lng");
+
+                        //String mobile=phone.getString("mobile");
+                        //String home=phone.getString("home");
+                        //String office=phone.getString("office");
+                        //HashMap<String,String> place=new HashMap<>();
+                        Places place=new Places(name,lat,longi);
+                        //contact.put("id",id);
+                    /*
+                    place.put("name",name);
+                    place.put("place_id",place_id);
+                    place.put("long",longi);
+                    place.put("lat",lat);
+                    */
+                        //contact.put("mobile",mobile);
+         /*               contactList.add(place);
+
+                    }
+
+                }catch(final JSONException e)
+                {
+                    Log.e(TAG,"Json Parsing error: "+e);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Toast.makeText(getApplicationContext(),"Json parsing error:"+e.getMessage(),Toast.LENGTH_LONG).show();
+
+
+                        }
+                    });
+                }
+            }else{
+                Log.e(TAG,"Couldnt get Json from Server");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"Couldnt get json from server.Check Logcat for possible errors",Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+            }
+
+
+        }*/
         return Error;
     }
 
