@@ -33,7 +33,7 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
 
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("Chat Room"));
-        tabLayout.addTab(tabLayout.newTab().setText("Venue"));
+        tabLayout.addTab(tabLayout.newTab().setText("Plan Room"));
 //        tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

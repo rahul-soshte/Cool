@@ -5,6 +5,7 @@ package com.example.hunter.planstart.TabLayout;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -14,11 +15,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.CustomAdapter.EventAdapter;
+import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
@@ -82,6 +85,16 @@ SessionManager session;
 
         // email
         user_email = user.get(SessionManager.KEY_EMAIL);
+
+        EventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(getActivity().getApplicationContext(),EventActivity.class);
+              //  myIntent.putExtra("test", "hello");
+
+                startActivity(myIntent);
+            }
+        });
+
 
         if (isOnline()) {
             //          BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());

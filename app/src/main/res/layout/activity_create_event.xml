@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Event Name" />
+        android:hint="Event Name"
+        android:maxLength="50"/>
     </android.support.design.widget.TextInputLayout>
 
 
