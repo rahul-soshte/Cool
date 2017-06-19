@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.hunter.planstart.CustomAdapter.EventAdapter;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.HttpHandler;
+import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
@@ -199,13 +200,13 @@ SessionManager session;
             String listevents_url="http://192.168.42.151/Planmap/events_json.php";
 
 try {
-    /*
+
     if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
     {
         return "Not Connected or Server Down or No Signal";
 
     }
-    */
+
     HttpHandler sh = new HttpHandler();
 
     URL url = new URL(listevents_url);
@@ -214,7 +215,6 @@ try {
 
     conn.setRequestMethod("POST");
 
-    // httpURLConnection.setDoOutput(true);
 
     conn.setDoInput(true);
 
@@ -244,39 +244,17 @@ try {
         stringBuilder.append(JSON_STRING+"\n");
 
     }
-    //jsonStr = sh.convertStreamtoString(in);
-    //InputStream inputStream=conn.getInputStream();
-    //result = sh.convertStreamtoString(inputStream);
-/*
-    int size=inputStream.available();
-    byte[] buffer=new byte[size];
-    inputStream.read(buffer);
-    inputStream.close();
-    result=new String(buffer,"UTF-8");
-  */
-/*
-    BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
 
-    String line="";
 
-    while((line=bufferedReader.readLine())!=null)
-    {
-        result+=line;
-   }
-*/
     bufferedReader.close();
     inputStream.close();
     conn.disconnect();
-
     JSON_STRING=stringBuilder.toString().trim();
-
-
 }
 catch(Exception e){
     e.printStackTrace();
 }
-            //Making a request to url and getting response
-          //  String jsonStr=sh.makeServiceCall(url);
+
 
 //            Log.e(TAG,"Response from url: "+result);
             if(JSON_STRING!=null)
@@ -292,10 +270,9 @@ catch(Exception e){
                     {
 
                         JSONObject c=results.getJSONObject(i);
-                        //String eventname=c.getString("EventName");
+
                         value_array.add(c.getString("EventName"));
-//                        EventsOne eventsOne=new EventsOne(eventname);
-  //                      EList.add(eventsOne);
+
                     }
 
                 }catch(final JSONException e)
@@ -318,23 +295,20 @@ catch(Exception e){
                 });
             }
 
-            return null;
+            return "cool";
         }
         @Override
         protected void onPostExecute(String result)
         {
-
-     //       super.onPostExecute(result);
-
-
-//        ListAdapter adapter=new SimpleAdapter(JasonActivity.this,contactList,R.layout.list_item,new String[]{"name","lat","long"},new int[]{R.id.name,R.id.lat,R.id.longi});
-//        ArrayAdapter<Places> listadapter=new ArrayAdapter<Places>(JasonActivity.this,R.layout.list_item,);
-                //m_adapter = new EventAdapter(getActivity(),android.R.layout.simple_list_item_1,android.R.id.text1,value_array);
+            if(result.equals("cool"))
+            {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, android.R.id.text1, value_array);
                 EventList.setAdapter(adapter);
-//TextView textView=(TextView)getActivity().findViewById(R.id.text);
-  //          textView.setText(result);
-  //          Toast.makeText(getActivity(),result,Toast.LENGTH_LONG).show();
+            }
+            if(result.equals("Not Connected or Server Down or No Signal")) {
+                Toast.makeText(getActivity(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 
