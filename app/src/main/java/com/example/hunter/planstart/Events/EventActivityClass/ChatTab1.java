@@ -22,4 +22,5 @@ public class ChatTab1 extends Fragment{
         return inflater.inflate(R.layout.chattab1, container, false);
     }
 
+
 }

@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +30,7 @@ public class CreateEventActivity extends AppCompatActivity{
     String email;
     @Bind(R.id.input_eventname)EditText eventname;
     @Bind(R.id.next_button)Button createbutton;
-   // @Bind(R.id.material_spinner1)MaterialBetterSpinner eventtype;
+   //@Bind(R.id.material_spinner1)MaterialBetterSpinner eventtype;
 
 
     @Override
@@ -40,7 +42,7 @@ public class CreateEventActivity extends AppCompatActivity{
         session = new SessionManager(getApplicationContext());
 
         ButterKnife.bind(this);
-
+        createbutton.setEnabled(false);
      //   ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
        //         android.R.layout.simple_dropdown_item_1line,SPINNERLIST);
 //        eventtype = (MaterialBetterSpinner)
@@ -55,7 +57,30 @@ public class CreateEventActivity extends AppCompatActivity{
         // email
          email = user.get(SessionManager.KEY_EMAIL);
 
+        eventname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                enableSubmitIfReady();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
     }
+
+    public void enableSubmitIfReady() {
+
+        boolean isReady =eventname.getText().toString().length()>0;
+        createbutton.setEnabled(isReady);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -78,12 +103,18 @@ public class CreateEventActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
     public void onClickCreate(View v)
     {
+
 String event= eventname.getText().toString();
+
         //String eventdesc=eventtype.get
 //        String eventdesc=String.valueOf(eventtype.getListSelection());
         String type="CreateEvent";
+
 if(isOnline()) {
     BackgroundWorker backgroundWorker = new BackgroundWorker(this);
     backgroundWorker.execute(type, event,email);

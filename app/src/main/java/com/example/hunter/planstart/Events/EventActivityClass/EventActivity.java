@@ -85,6 +85,7 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
     }
+
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
 

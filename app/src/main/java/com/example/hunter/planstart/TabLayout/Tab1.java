@@ -245,7 +245,6 @@ try {
 
     }
 
-
     bufferedReader.close();
     inputStream.close();
     conn.disconnect();
