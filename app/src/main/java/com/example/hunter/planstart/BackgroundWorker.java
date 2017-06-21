@@ -29,6 +29,7 @@ import java.net.URLEncoder;
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
 String user_email;
+String eventname;
 
 
     AlertDialog alertDialog;
@@ -175,7 +176,7 @@ String Error="error";
         else if(type.equals("CreateEvent"))
         {
             try {
-                String eventname = params[1];
+                eventname = params[1];
                 user_email=params[2];
 
 
@@ -360,6 +361,7 @@ String Error="error";
         if(result.equals("Event Created"))
         {
             Intent intent=new Intent(context,EventActivity.class);
+            intent.putExtra("title",eventname);
             context.startActivity(intent);
             Toast.makeText(context,"Event Created", Toast.LENGTH_LONG).show();
 

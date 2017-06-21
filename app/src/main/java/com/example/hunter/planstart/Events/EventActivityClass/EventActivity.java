@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.hunter.planstart.Events.EventParticipantDetails;
 import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
@@ -24,9 +26,24 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+        Intent intent=getIntent();
+        String name = intent.getStringExtra("title");
+        setTitle(name);
+
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(EventActivity.this, EventParticipantDetails.class);
+        startActivity(intent);
+//                Toast.makeText(EventActivity.this,"Toolbar title clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -50,6 +67,9 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         tabLayout.setOnTabSelectedListener(this);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
     }
 
     @Override

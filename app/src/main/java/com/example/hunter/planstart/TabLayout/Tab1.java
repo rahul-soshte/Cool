@@ -88,9 +88,11 @@ SessionManager session;
 
         EventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent myIntent = new Intent(getActivity().getApplicationContext(),EventActivity.class);
-              //  myIntent.putExtra("test", "hello");
 
+               String eventname=parent.getItemAtPosition(position).toString();
+
+                Intent myIntent = new Intent(getActivity().getApplicationContext(),EventActivity.class);
+                myIntent.putExtra("title",eventname);
                 startActivity(myIntent);
             }
         });
@@ -103,7 +105,6 @@ SessionManager session;
             ReadJson readJson=new ReadJson();
             readJson.execute();
         }//Else SQLITE OR CHANGED=0----------POSSIBLE FUTURE CODE
-
         else {
             Toast.makeText(getActivity(), "Not Connected to Internet", Toast.LENGTH_LONG).show();
 
@@ -265,9 +266,8 @@ try {
 }
 catch(Exception e){
     e.printStackTrace();
+
 }
-
-
 //            Log.e(TAG,"Response from url: "+result);
             if(JSON_STRING!=null)
             {

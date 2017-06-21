@@ -40,7 +40,7 @@ public class CreateEventActivity extends AppCompatActivity{
         setContentView(R.layout.activity_create_event);
 
         session = new SessionManager(getApplicationContext());
-
+        
         ButterKnife.bind(this);
         createbutton.setEnabled(false);
      //   ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
