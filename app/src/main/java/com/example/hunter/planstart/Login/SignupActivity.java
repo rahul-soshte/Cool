@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.BackgroundWorker;
-import com.example.hunter.planstart.MainActivity;
+import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.R;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,13 +44,13 @@ public class SignupActivity extends AppCompatActivity {
     Button _signupButton;
     @Bind(R.id.link_login)
     TextView _loginLink;
-
+    @Bind(R.id.result_text) TextView Result_text;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-
+//        TextView tv=(TextView)findViewById(R.id.result_text);
        // GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
        // gifImageView.setGifImageResource(R.drawable.ripple);
 
@@ -62,7 +72,97 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        _userNameText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+                if(isOnline()) {
+//String type="checkusername";
+
+new CheckUsername().execute(arg0.toString());
+
+//new BackgroundWorker(getApplicationContext()).execute(type,arg0.toString());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
     }
+
+    private class CheckUsername extends AsyncTask<String,Void,String>
+    {
+HttpHandler sh=new HttpHandler();
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String checkusername_url="http://192.168.42.151/Planmap/checkusername.php";
+                String username=params[0];
+
+                try {
+
+                    if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                    {
+                        return "Not Connected or Server Down or No Signal";
+
+                    }
+
+                    URL url=new URL(checkusername_url);
+                    HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoInput(true);
+                    OutputStream outputStream=httpURLConnection.getOutputStream();
+                    String post_data= URLEncoder.encode("username","UTF-8")+"="+ URLEncoder.encode(username,"UTF-8");
+                    sh.WritetoOutputStream(outputStream,post_data);
+                    outputStream.close();
+                    InputStream inputStream=httpURLConnection.getInputStream();
+                    String result=sh.convertStreamToStringWithoutNewline(inputStream);
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return result;
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return "noone";
+
+
+            }
+        protected void onPostExecute(String result)
+        {
+            if(result.equals("Not Connected or Server Down or No Signal"))
+            {
+
+            }
+
+    if(result.equals("Username already taken"))
+    {
+     //   TextView tv=(TextView)findViewById(R.id.result_text);
+Result_text.setText("Username Already Taken");
+    }
+    if(result.equals("Cool"))
+    {
+        Result_text.setText("Cool");
+    }
+        }
+
+        }
 
     public void signup() {
         Log.d(TAG, "Signup");
@@ -72,18 +172,10 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-       // _signupButton.setEnabled(false);
-/*
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
-*/
         String firstname = _firstnameText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String email = _emailText.getText().toString();
-        //String mobile = _mobileText.getText().toString();
+        String username = _userNameText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 String type = "signup";
@@ -91,27 +183,17 @@ String type = "signup";
         // TODO: Implement your own signup logic here.
 if(isOnline()) {
     BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-    backgroundWorker.execute(type, firstname, lastname, email, password);
+    backgroundWorker.execute(type, firstname, lastname, email,password,username);
 }
 else{
     Toast.makeText(getBaseContext(), "No Signal or Server Down or Not Connected", Toast.LENGTH_LONG).show();
 }
-/*
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);*/
+
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent =new Intent(SignupActivity.this,MainActivity.class);
+        Intent intent =new Intent(SignupActivity.this,LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -136,10 +218,10 @@ else{
         String firstname = _firstnameText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String email = _emailText.getText().toString();
-       // String username = _mobileText.getText().toString();
+        String username = _userNameText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-
+String result_textval= Result_text.getText().toString();
         if (firstname.isEmpty() || firstname.length() < 1) {
             _firstnameText.setError("at least 1 characters");
             valid = false;
@@ -154,11 +236,24 @@ else{
         }
 
 
+        if(result_textval.equals("Username Already Taken"))
+        {
+            _userNameText.setError("Username Already Taken");
+            valid=false;
 
+        }else if (username.length()<2 || username.isEmpty())
+        {
+            _userNameText.setError("Atleast 2 character");
+        }
+        else {
+            _userNameText.setError(null);
+        }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
             _emailText.setError("enter a valid email address");
             valid = false;
+
         } else {
             _emailText.setError(null);
         }

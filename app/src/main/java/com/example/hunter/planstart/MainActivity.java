@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         {
             Intent intent=new Intent(MainActivity.this, CreateEventActivity.class);
             startActivity(intent);
-
         }
         if(id==R.id.action_log_out)
         {
@@ -114,14 +113,13 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());
     }
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
-
     }
     @Override
     public void onTabReselected(TabLayout.Tab tab) {

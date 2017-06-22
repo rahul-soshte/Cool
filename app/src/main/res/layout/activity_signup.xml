@@ -68,7 +68,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:hint="Username">
-</EditText>
+            </EditText>
+
+                <TextView android:id="@+id/result_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="result_text"
+                    />
+
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->

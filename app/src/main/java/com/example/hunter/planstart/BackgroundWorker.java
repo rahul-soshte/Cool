@@ -28,13 +28,16 @@ String user_email;
 String eventname;
 HttpHandler sh=new HttpHandler();
 
-
+//WeakReference<Activity> mWeakActivity;
     AlertDialog alertDialog;
 String Error="error";
 
     public BackgroundWorker(Context ctx)
     {
         context=ctx;
+ //       mWeakActivity = new WeakReference<Activity>((SignupActivity)ctx);
+
+
 
     }
     @Override
@@ -44,7 +47,7 @@ String Error="error";
         String signup_url="http://192.168.42.151/Planmap/signup.php";
         String createevent_url="http://192.168.42.151/Planmap/createevent.php";
         String listevents_url="http://192.168.42.151/Planmap/events_json.php";
-
+        String checkusername_url="http://192.168.42.151/Planmap/checkusername.php";
 
         if(type.equals("login"))
         {
@@ -96,6 +99,9 @@ String Error="error";
 
                 user_email = params[3];
 
+                String username=params[5];
+
+
                 //String mobile =
                 String pass_word = params[4];
                 URL url=new URL(signup_url);
@@ -114,7 +120,8 @@ String Error="error";
                 String post_data= URLEncoder.encode("fname","UTF-8")+"="+URLEncoder.encode(fname,"UTF-8")+"&"
                  + URLEncoder.encode("lname","UTF-8")+"="+URLEncoder.encode(lname,"UTF-8")+"&"
                  + URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8")+"&"
-                        +URLEncoder.encode("pass_word","UTF-8")+"="+URLEncoder.encode(pass_word,"UTF-8");
+                        +URLEncoder.encode("pass_word","UTF-8")+"="+URLEncoder.encode(pass_word,"UTF-8")+"&"
+                        +URLEncoder.encode("username","UTF-8")+"="+URLEncoder.encode(username,"UTF-8");
 
                 sh.WritetoOutputStream(outputStream,post_data);
 
@@ -156,16 +163,11 @@ String Error="error";
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
 
-                //BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String post_data= URLEncoder.encode("eventname","UTF-8")+"="+URLEncoder.encode(eventname,"UTF-8")+"&"
                         +URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8");
 
                 sh.WritetoOutputStream(outputStream,post_data);
-                /*
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-  */
+
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
                 String result=sh.convertStreamToStringWithoutNewline(inputStream);
@@ -183,6 +185,33 @@ String Error="error";
                 return Error;
             }
         }
+        /*
+        else if (type.equals("checkusername"))
+        {
+String username=params[1];
+
+            try {
+
+                URL url=new URL(checkusername_url);
+                HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream=httpURLConnection.getOutputStream();
+                String post_data= URLEncoder.encode("username","UTF-8")+"="+URLEncoder.encode(username,"UTF-8");
+                sh.WritetoOutputStream(outputStream,post_data);
+                outputStream.close();
+                InputStream inputStream=httpURLConnection.getInputStream();
+                String result=sh.convertStreamToStringWithoutNewline(inputStream);
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        */
 
         return Error;
     }
@@ -227,6 +256,18 @@ String Error="error";
             Toast.makeText(context, "Account Created Successfully", Toast.LENGTH_LONG).show();
 
         }
+        /*
+        if(result.equals("Username already taken"))
+        {
+            TextView tv=(TextView)((SignupActivity)context).findViewById(R.id.result_text);
+            tv.setText("hello");
+        }
+        if(result.equals("Cool"))
+        {
+            TextView tv=(TextView)((SignupActivity)context).findViewById(R.id.result_text);
+            tv.setText("Move Bitch!");
+        }
+        */
 
         if (result.equals("error")) {
             Toast.makeText(context, "Something went Wrong", Toast.LENGTH_LONG).show();

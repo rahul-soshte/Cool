@@ -117,9 +117,7 @@ SessionManager session;
         protected String doInBackground(String... strings)
         {
             String listevents_url="http://192.168.42.151/Planmap/events_json.php";
-
 try {
-
     if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
     {
         return "Not Connected or Server Down or No Signal";
@@ -141,25 +139,18 @@ try {
 }
 catch(Exception e){
     e.printStackTrace();
-
 }
 //            Log.e(TAG,"Response from url: "+result);
             if(JSON_STRING!=null)
             {
                 try{
-
                     JSONObject jsonObject=new JSONObject(JSON_STRING);
-
                     //Getting JSON Array node
                     JSONArray results=jsonObject.getJSONArray("server_response");
-
                     for(int i=0;i<results.length();i++)
                     {
-
                         JSONObject c=results.getJSONObject(i);
-
                         value_array.add(c.getString("EventName"));
-
                     }
 
                 }catch(final JSONException e)

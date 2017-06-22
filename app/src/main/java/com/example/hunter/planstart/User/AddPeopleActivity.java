@@ -21,11 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -98,20 +96,13 @@ HttpHandler sh=new HttpHandler();
                 {
                     return "Not Connected or Server Down or No Signal";
                 }
-
-
                 URL url=new URL(addpeep_url);
                 HttpURLConnection conn=(HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 OutputStream outputStream=conn.getOutputStream();
-
-                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String post_data= URLEncoder.encode("argument","UTF-8")+"="+URLEncoder.encode(argument,"UTF-8");
-
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
+                sh.WritetoOutputStream(outputStream,post_data);
                 outputStream.close();
                 InputStream inputStream = conn.getInputStream();
 
