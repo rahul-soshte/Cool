@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         _signupLink.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
@@ -108,25 +107,6 @@ public class LoginActivity extends AppCompatActivity {
             //onLoginFailed();
             Toast.makeText(getBaseContext(), "Server Down or Signal Down or Not Connected", Toast.LENGTH_LONG).show();
         }
-/*
-if(wassuccessful) {
-
-    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-    startActivity(intent);
-}
-*/
-   /*
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-                */
-
     }
 
 

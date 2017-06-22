@@ -1,7 +1,6 @@
 package com.example.hunter.planstart;
 
 import android.util.Log;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -75,6 +74,30 @@ private static final String TAG=HttpHandler.class.getSimpleName();
             }
         }
         return sb.toString();
+
+    }
+    public String convertStreamToStringWithoutNewline(InputStream inputStream)
+    {
+        String result= null;
+        try {
+            BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+
+            result = "";
+            String line="";
+
+            while((line=bufferedReader.readLine())!=null)
+            {
+                result+=line;
+
+            }
+
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+
 
     }
 }

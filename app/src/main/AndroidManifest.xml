@@ -24,6 +24,7 @@
             android:name=".Login.LoginActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
+            android:hardwareAccelerated="false"
             android:name=".Login.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity

@@ -10,11 +10,9 @@ import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -30,6 +28,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
 String user_email;
 String eventname;
+HttpHandler sh=new HttpHandler();
 
 
     AlertDialog alertDialog;
@@ -78,16 +77,8 @@ String Error="error";
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
-                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-                while((line=bufferedReader.readLine())!=null)
-                {
-                    result+=line;
-
-                }
-                bufferedReader.close();
-                inputStream.close();
+                String result=sh.convertStreamToStringWithoutNewline(inputStream);
+               inputStream.close();
                 httpURLConnection.disconnect();
                 return result;
 
@@ -117,15 +108,6 @@ String Error="error";
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
 
-             //   httpURLConnection.connect();
-
-       //         int statusCode = httpURLConnection.getResponseCode();
-              //  return statusCode+"";
-
-         //       if(statusCode == 200){
-               //     cancel(true);
-           //     }
-
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
@@ -134,8 +116,6 @@ String Error="error";
 
 
                 httpURLConnection.setDoInput(true);
-                httpURLConnection.setDoInput(true);
-
                 OutputStream outputStream=httpURLConnection.getOutputStream();
 
                 BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
@@ -149,15 +129,8 @@ String Error="error";
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
-                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result_signup="";
-                String line="";
-                while((line=bufferedReader.readLine())!=null)
-                {
-                    result_signup+=line;
 
-                }
-                bufferedReader.close();
+                String result_signup=sh.convertStreamToStringWithoutNewline(inputStream);
                 inputStream.close();
                 httpURLConnection.disconnect();
                 return result_signup;
@@ -203,17 +176,7 @@ String Error="error";
                 bufferedWriter.close();
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
-                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
-                String result="";
-                String line="";
-
-                while((line=bufferedReader.readLine())!=null)
-                {
-                    result+=line;
-
-                }
-
-                bufferedReader.close();
+                String result=sh.convertStreamToStringWithoutNewline(inputStream);
                 inputStream.close();
                 httpURLConnection.disconnect();
                 return result;
@@ -228,85 +191,7 @@ String Error="error";
                 return Error;
             }
         }
-       /*
-        else if(type.equals("ListEvents"))
-        {
-            user_email=params[1];
 
-            HttpHandler sh=new HttpHandler();
-            //Making a request to url and getting response
-            String url=listevents_url;
-
-            String jsonStr=sh.makeServiceCall(url);
-
-            Log.e(TAG,"Response from url: "+jsonStr);
-            if(jsonStr!=null)
-            {
-                try{
-                    JSONObject jsonObj=new JSONObject(jsonStr);
-                    //Getting JSON Array node
-                    JSONArray results=jsonObj.getJSONArray("results");
-
-                    for(int i=0;i<results.length();i++)
-                    {
-                        JSONObject c=results.getJSONObject(i);
-                        //  String id=c.getString("id");
-                        String name=c.getString("name");
-                        String place_id=c.getString("place_id");
-
-                        // String address=c.getString("address");
-                        // String gender=c.getString("gender");
-                        //pHone node is JSON object
-                        //JSONObject phone=c.getJSONObject("phone");
-                        JSONObject geometry=c.getJSONObject("geometry");
-                        JSONObject location=geometry.getJSONObject("location");
-                        double lat=location.getDouble("lat");
-                        double longi=location.getDouble("lng");
-
-                        //String mobile=phone.getString("mobile");
-                        //String home=phone.getString("home");
-                        //String office=phone.getString("office");
-                        //HashMap<String,String> place=new HashMap<>();
-                        Places place=new Places(name,lat,longi);
-                        //contact.put("id",id);
-                    /*
-                    place.put("name",name);
-                    place.put("place_id",place_id);
-                    place.put("long",longi);
-                    place.put("lat",lat);
-                    */
-                        //contact.put("mobile",mobile);
-         /*               contactList.add(place);
-
-                    }
-
-                }catch(final JSONException e)
-                {
-                    Log.e(TAG,"Json Parsing error: "+e);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            Toast.makeText(getApplicationContext(),"Json parsing error:"+e.getMessage(),Toast.LENGTH_LONG).show();
-
-
-                        }
-                    });
-                }
-            }else{
-                Log.e(TAG,"Couldnt get Json from Server");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),"Couldnt get json from server.Check Logcat for possible errors",Toast.LENGTH_LONG).show();
-
-                    }
-                });
-
-            }
-
-
-        }*/
         return Error;
     }
 

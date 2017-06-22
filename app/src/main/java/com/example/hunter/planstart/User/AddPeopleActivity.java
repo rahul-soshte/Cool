@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
 
@@ -20,11 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -48,9 +47,6 @@ public class AddPeopleActivity extends AppCompatActivity {
         etSearchbox = (EditText) findViewById(R.id.etSearchbox);
         lvFirst = (ListView) findViewById(R.id.lvFirst);
         lvFirst.setTextFilterEnabled(true);
-        //    adapter1 = new ArrayAdapter<String>(AddPeopleActivity.this, android.R.layout.simple_list_item_1, data);
-        //   lvFirst.setAdapter(adapter1);
-
         etSearchbox.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -62,10 +58,6 @@ if(isOnline()) {
 else {
     Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
 }
-
-
-//AddPeopleActivity.this.adapter1.getFilter().filter(arg0);
-
             }
 
             @Override
@@ -89,6 +81,7 @@ else {
         ArrayList<String> value_array=new ArrayList<String>();
 
 String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
+HttpHandler sh=new HttpHandler();
 
         @Override
         protected String doInBackground(String... params) {
@@ -98,15 +91,14 @@ String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
             if(argument.equals("") || argument.equals("%") )
             {
                 return "cool";
-
             }
             try {
 
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
-
                 }
+
 
                 URL url=new URL(addpeep_url);
                 HttpURLConnection conn=(HttpURLConnection)url.openConnection();
@@ -121,24 +113,14 @@ String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
-
                 InputStream inputStream = conn.getInputStream();
 
-                BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+                JSON_STRING = sh.convertStreamtoString(inputStream);
 
-                StringBuilder stringBuilder=new StringBuilder();
 
-                while((JSON_STRING=bufferedReader.readLine())!=null)
-                {
-
-                    stringBuilder.append(JSON_STRING+"\n");
-
-                }
-
-                bufferedReader.close();
                 inputStream.close();
                 conn.disconnect();
-                JSON_STRING=stringBuilder.toString().trim();
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -147,8 +129,6 @@ String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
             if(JSON_STRING!=null)
             {
                 try{
-
-
 
                     //Getting JSON Array node
                     JSONArray results=new JSONArray(JSON_STRING);

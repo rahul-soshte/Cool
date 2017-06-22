@@ -27,7 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText _firstnameText;
     @Bind(R.id.input_lastname) EditText _lastnameText;
     @Bind(R.id.input_email) EditText _emailText;
-    //@Bind(R.id.input_mobile) EditText _mobileText;
+    @Bind(R.id.input_username) EditText _userNameText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
     @Bind(R.id.btn_signup)
@@ -40,6 +40,9 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+
+       // GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
+       // gifImageView.setGifImageResource(R.drawable.ripple);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +61,7 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
     }
 
     public void signup() {
@@ -132,7 +136,7 @@ else{
         String firstname = _firstnameText.getText().toString();
         String lastname = _lastnameText.getText().toString();
         String email = _emailText.getText().toString();
-       // String mobile = _mobileText.getText().toString();
+       // String username = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
