@@ -10,11 +10,9 @@ import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -68,13 +66,9 @@ String Error="error";
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
-
-                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String post_data= URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8")+"&"
                         +URLEncoder.encode("pass_word","UTF-8")+"="+URLEncoder.encode(pass_word,"UTF-8");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
+                sh.WritetoOutputStream(outputStream,post_data);
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
                 String result=sh.convertStreamToStringWithoutNewline(inputStream);
@@ -117,15 +111,13 @@ String Error="error";
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
 
-                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String post_data= URLEncoder.encode("fname","UTF-8")+"="+URLEncoder.encode(fname,"UTF-8")+"&"
                  + URLEncoder.encode("lname","UTF-8")+"="+URLEncoder.encode(lname,"UTF-8")+"&"
                  + URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8")+"&"
                         +URLEncoder.encode("pass_word","UTF-8")+"="+URLEncoder.encode(pass_word,"UTF-8");
 
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
+                sh.WritetoOutputStream(outputStream,post_data);
+
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
 
@@ -161,18 +153,19 @@ String Error="error";
                 URL url=new URL(createevent_url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
-
-                httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
 
-                BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                //BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
                 String post_data= URLEncoder.encode("eventname","UTF-8")+"="+URLEncoder.encode(eventname,"UTF-8")+"&"
                         +URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8");
 
+                sh.WritetoOutputStream(outputStream,post_data);
+                /*
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
+  */
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
                 String result=sh.convertStreamToStringWithoutNewline(inputStream);

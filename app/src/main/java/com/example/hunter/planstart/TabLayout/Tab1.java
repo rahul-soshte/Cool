@@ -33,10 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -62,8 +60,6 @@ SessionManager session;
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         return inflater.inflate(R.layout.tab1, container, false);
-
-
     }
 
     @Override
@@ -129,34 +125,16 @@ try {
         return "Not Connected or Server Down or No Signal";
 
     }
-
     HttpHandler sh = new HttpHandler();
-
     URL url = new URL(listevents_url);
-
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
     conn.setRequestMethod("POST");
-
-
     conn.setDoInput(true);
-
     OutputStream outputStream = conn.getOutputStream();
-
-    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
     String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode(user_email, "UTF-8");
-
-    bufferedWriter.write(post_data);
-
-    bufferedWriter.flush();
-
-    bufferedWriter.close();
-
+    sh.WritetoOutputStream(outputStream,post_data);
     outputStream.close();
-
    InputStream inputStream = conn.getInputStream();
-
     JSON_STRING=sh.convertStreamtoString(inputStream);
     inputStream.close();
     conn.disconnect();
