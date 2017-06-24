@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
+import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
 
@@ -26,6 +27,10 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
 String user_email;
 String eventname;
+    EventsOne event;
+    Boolean eventcreatedboolean=false;
+
+
 HttpHandler sh=new HttpHandler();
 
 //WeakReference<Activity> mWeakActivity;
@@ -54,18 +59,13 @@ String Error="error";
             try {
                 user_email=params[1];
                 String pass_word=params[2];
-
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
-
                 }
-
                 URL url=new URL(login_url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
-
-
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
@@ -104,6 +104,7 @@ String Error="error";
 
                 //String mobile =
                 String pass_word = params[4];
+
                 URL url=new URL(signup_url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -111,7 +112,6 @@ String Error="error";
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
-
                 }
 
                 httpURLConnection.setDoInput(true);
@@ -124,10 +124,8 @@ String Error="error";
                         +URLEncoder.encode("username","UTF-8")+"="+URLEncoder.encode(username,"UTF-8");
 
                 sh.WritetoOutputStream(outputStream,post_data);
-
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
-
                 String result_signup=sh.convertStreamToStringWithoutNewline(inputStream);
                 inputStream.close();
                 httpURLConnection.disconnect();
@@ -165,15 +163,16 @@ String Error="error";
 
                 String post_data= URLEncoder.encode("eventname","UTF-8")+"="+URLEncoder.encode(eventname,"UTF-8")+"&"
                         +URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8");
-
                 sh.WritetoOutputStream(outputStream,post_data);
-
                 outputStream.close();
                 InputStream inputStream=httpURLConnection.getInputStream();
                 String result=sh.convertStreamToStringWithoutNewline(inputStream);
+                int event_id=Integer.valueOf(result);
+                event=new EventsOne(event_id,eventname);
+        //        eventcreatedboolean=true;
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+                return "Event Created";
 
             } catch (MalformedURLException e) {
                 return Error;
@@ -279,10 +278,9 @@ String username=params[1];
         if(result.equals("Event Created"))
         {
             Intent intent=new Intent(context,EventActivity.class);
-            intent.putExtra("title",eventname);
+            intent.putExtra("EventObject",event);
             context.startActivity(intent);
             Toast.makeText(context,"Event Created", Toast.LENGTH_LONG).show();
-
         }
 
         Toast.makeText(context,result, Toast.LENGTH_LONG).show();
