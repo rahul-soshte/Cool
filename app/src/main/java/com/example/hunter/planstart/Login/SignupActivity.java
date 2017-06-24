@@ -79,12 +79,13 @@ public class SignupActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if(isOnline()) {
 //String type="checkusername";
-
+//CheckUsername checkUsername=new CheckUsername();
+  //                  checkUsername.execute(arg0.toString());
 new CheckUsername().execute(arg0.toString());
-
 //new BackgroundWorker(getApplicationContext()).execute(type,arg0.toString());
                 }
                 else {
+                    Result_text.setText("Loading..");
                     Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
                 }
             }
@@ -93,6 +94,16 @@ new CheckUsername().execute(arg0.toString());
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
                 // TODO Auto-generated method stub
+                if(isOnline()) {
+                    if ((Result_text.getText()).equals("Loading..")) {
+                        new CheckUsername().execute(arg0.toString());
+
+                    }
+
+                } else {
+                        Result_text.setText("Loading..");
+                        Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
+                    }
 
             }
 
@@ -148,12 +159,13 @@ HttpHandler sh=new HttpHandler();
         {
             if(result.equals("Not Connected or Server Down or No Signal"))
             {
+                Result_text.setText("Loading..");
 
             }
 
     if(result.equals("Username already taken"))
     {
-     //   TextView tv=(TextView)findViewById(R.id.result_text);
+        //   TextView tv=(TextView)findViewById(R.id.result_text);
 Result_text.setText("Username Already Taken");
     }
     if(result.equals("Cool"))
@@ -221,8 +233,9 @@ else{
         String username = _userNameText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-String result_textval= Result_text.getText().toString();
-        if (firstname.isEmpty() || firstname.length() < 1) {
+        String result_textval= Result_text.getText().toString();
+
+         if (firstname.isEmpty() || firstname.length() < 1) {
             _firstnameText.setError("at least 1 characters");
             valid = false;
         } else {

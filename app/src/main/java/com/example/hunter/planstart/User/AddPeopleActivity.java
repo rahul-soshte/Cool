@@ -8,11 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.hunter.planstart.CustomAdapter.UserAdapter;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
@@ -32,8 +32,9 @@ import java.util.ArrayList;
 public class AddPeopleActivity extends AppCompatActivity {
     EditText etSearchbox;
     ListView lvFirst;
-    ArrayAdapter<String> adapter1;
+    //ArrayAdapter<String> adapter1;
     String[] data = {""};
+private UserAdapter m_adapter;
 
     ArrayList<String> people;
 
@@ -76,7 +77,7 @@ else {
     private class SearchPeep extends AsyncTask<String,Void,String>
     {
         String JSON_STRING;
-        ArrayList<String> value_array=new ArrayList<String>();
+        ArrayList<UserOne> value_array=new ArrayList<UserOne>();
 
 String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
 HttpHandler sh=new HttpHandler();
@@ -107,8 +108,6 @@ HttpHandler sh=new HttpHandler();
                 InputStream inputStream = conn.getInputStream();
 
                 JSON_STRING = sh.convertStreamtoString(inputStream);
-
-
                 inputStream.close();
                 conn.disconnect();
 
@@ -123,12 +122,19 @@ HttpHandler sh=new HttpHandler();
 
                     //Getting JSON Array node
                     JSONArray results=new JSONArray(JSON_STRING);
-
                     for(int i=0;i<results.length();i++)
                     {
-                        JSONObject c=results.getJSONObject(i);
-                        value_array.add(c.getString("fname"));
 
+                        JSONObject c=results.getJSONObject(i);
+                        int user_id=c.getInt("user_id");
+                        String firstname=c.getString("fname");
+                        String lastname=c.getString("lname");
+                        String username=c.getString("username");
+                        String email_id=c.getString("email_id");
+                        String password=c.getString("password");
+
+                        UserOne user=new UserOne(user_id,firstname,lastname,email_id,username,password);
+                        value_array.add(user);
                     }
 
                 }catch(final JSONException e)
@@ -158,8 +164,8 @@ HttpHandler sh=new HttpHandler();
         {
             if(result.equals("cool"))
             {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, android.R.id.text1, value_array);
-                lvFirst.setAdapter(adapter);
+                m_adapter = new UserAdapter(getApplicationContext(),R.layout.user_add_peep,value_array);
+                lvFirst.setAdapter(m_adapter);
             }
             if(result.equals("Not Connected or Server Down or No Signal")) {
                 Toast.makeText(getApplicationContext(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();

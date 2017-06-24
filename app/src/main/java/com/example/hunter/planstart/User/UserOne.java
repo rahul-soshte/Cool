@@ -6,24 +6,30 @@ package com.example.hunter.planstart.User;
 
 public class UserOne {
 
+    public int user_id;
+
     public String firstname;
     public String lastname;
-    public double GpsLat;
-    public double GpsLong;
-    public int contactno;
+//    public double GpsLat;
+  //  public double GpsLong;
+    //public int contactno;
     public String email_id;
     public String password;
+    String username;
 
-    public UserOne(String firstname,String lastname,int contactno, String email_id,String password)
+    public UserOne(int user_id,String firstname,String lastname, String email_id,String username,String password)
     {
+
+        this.user_id=user_id;
+
         this.firstname=firstname;
         this.lastname=lastname;
-        this.contactno=contactno;
+        this.username=username;
         this.email_id=email_id;
         this.password=password;
 
     }
-
+    /*
     public void setGpsLatLong(double latitude,double longitude)
     {
         this.GpsLat=latitude;
@@ -32,6 +38,10 @@ public class UserOne {
 
     }
 
+     public int getContactNo()
+    {
+        return contactno;
+    }
     public double getGpsLat()
     {
         return GpsLat;
@@ -41,23 +51,30 @@ public class UserOne {
     {
         return GpsLong;
     }
+*/
 
-    public String FirstName()
+    public String getFirstName()
     {
         return firstname;
     }
 
-    public String LastName() {
+    public String getLastName() {
         return lastname;
     }
-    public int getContactNo()
-    {
-    return contactno;
-    }
+
     public String getemailid()
     {
         return email_id;
 
+    }
+    public  String getUsername()
+    {
+        return username;
+
+    }
+    public String getPassword()
+    {
+        return password;
     }
 
 }
