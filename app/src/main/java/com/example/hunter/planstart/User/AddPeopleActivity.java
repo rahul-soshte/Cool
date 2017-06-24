@@ -170,7 +170,6 @@ HttpHandler sh=new HttpHandler();
             if(result.equals("Not Connected or Server Down or No Signal")) {
                 Toast.makeText(getApplicationContext(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
             }
-
         }
 
     }

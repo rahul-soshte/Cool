@@ -46,7 +46,7 @@ public class UserAdapter extends ArrayAdapter {
 
             if(tfname!=null)
             {
-                tfname.setText(i.getFirstName());
+                tfname.setText(" "+i.getFirstName()+" ");
 
             }
 
@@ -58,7 +58,7 @@ public class UserAdapter extends ArrayAdapter {
 
             if(tusername!=null)
             {
-                tusername.setText(i.getUsername());
+                tusername.setText("("+i.getUsername()+")");
             }
 
         }
