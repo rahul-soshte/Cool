@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -111,7 +110,9 @@ SessionManager session;
 
         String JSON_STRING;
 
-        ArrayList<String> value_array=new ArrayList<String>();
+        private EventAdapter adapter;
+
+        ArrayList<EventsOne> value_array=new ArrayList<EventsOne>();
 
         @Override
         protected String doInBackground(String... strings)
@@ -150,7 +151,12 @@ catch(Exception e){
                     for(int i=0;i<results.length();i++)
                     {
                         JSONObject c=results.getJSONObject(i);
-                        value_array.add(c.getString("EventName"));
+                      int event_id=c.getInt("event_id");
+                        String eventname=c.getString("EventName");
+
+                        EventsOne event=new EventsOne(event_id,eventname);
+
+                        value_array.add(event);
                     }
 
                 }catch(final JSONException e)
@@ -180,7 +186,7 @@ catch(Exception e){
         {
             if(result.equals("cool"))
             {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, android.R.id.text1, value_array);
+                adapter = new EventAdapter(getActivity().getApplicationContext(),R.layout.event_listitem_layout, value_array);
                 EventList.setAdapter(adapter);
             }
             if(result.equals("Not Connected or Server Down or No Signal")) {

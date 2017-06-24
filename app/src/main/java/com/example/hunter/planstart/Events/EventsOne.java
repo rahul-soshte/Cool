@@ -12,23 +12,17 @@ import java.util.ArrayList;
 public class EventsOne {
 
     public ArrayList<UserOne> UsersList;
+    public int event_id;
     public String event_name;
 
-    public EventsOne(String event_name)
+    public EventsOne(int event_id,String event_name)
     {
 
+        this.event_id=event_id;
         this.event_name=event_name;
 
     }
 
-    public static final EventsOne[] event = {
-            new EventsOne("Event 1"),
-            new EventsOne("Event 2"),
-            new EventsOne("Event 3"),
-            new EventsOne("Event 4"),
-            new EventsOne("Event 5")
-
-    };
 
     public String toString()
     {
@@ -39,6 +33,10 @@ public class EventsOne {
         return event_name;
     }
 
+    public int getEvent_id()
+    {
+        return event_id;
+    }
 
 
 }

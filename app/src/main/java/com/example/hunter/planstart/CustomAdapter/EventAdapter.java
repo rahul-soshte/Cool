@@ -38,7 +38,7 @@ public class EventAdapter extends ArrayAdapter {
         if(i!=null)
         {
             TextView tn=(TextView)v.findViewById(R.id.event_name);
-
+            
             if(tn!=null)
             {
                 tn.setText(i.getEvent_name());
