@@ -2,14 +2,14 @@ package com.example.hunter.planstart.Events;
 
 
 import com.example.hunter.planstart.User.UserOne;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by hunter on 4/5/17.
  */
 
-public class EventsOne {
+public class EventsOne implements Serializable{
 
     public ArrayList<UserOne> UsersList;
     public int event_id;
@@ -20,7 +20,6 @@ public class EventsOne {
 
         this.event_id=event_id;
         this.event_name=event_name;
-
     }
 
 

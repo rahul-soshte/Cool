@@ -22,7 +22,6 @@ public class UserAdapter extends ArrayAdapter {
     public UserAdapter(Context context, int textViewResourceId, ArrayList<UserOne> users)
     {
         super(context,textViewResourceId,users);
-
         this.users=users;
     }
 

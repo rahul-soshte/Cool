@@ -42,10 +42,9 @@ import java.util.HashMap;
 
 
 //Our class extending fragment
-public class Tab1 extends Fragment {
+public class Tab1 extends Fragment{
 
     ArrayList<EventsOne> EList;
-
     private EventAdapter m_adapter;
  String user_email;
  ListView EventList;
@@ -82,10 +81,14 @@ SessionManager session;
         EventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-               String eventname=parent.getItemAtPosition(position).toString();
+                EventsOne event=(EventsOne)parent.getItemAtPosition(position);
+               // String eventname=event.getEvent_name();
+                //int event_id=event.getEvent_id();
 
                 Intent myIntent = new Intent(getActivity().getApplicationContext(),EventActivity.class);
-                myIntent.putExtra("title",eventname);
+                myIntent.putExtra("EventObject",event);
+
+               // myIntent.putExtra("title",eventname);
                 startActivity(myIntent);
             }
         });
@@ -94,7 +97,6 @@ SessionManager session;
         if (isOnline()) {
             //          BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity().getApplicationContext());
             //new GetContacts().execute();
-
             ReadJson readJson=new ReadJson();
             readJson.execute();
         }//Else SQLITE OR CHANGED=0----------POSSIBLE FUTURE CODE
@@ -204,6 +206,5 @@ catch(Exception e){
         }
         return false;
     }
-
 
 }

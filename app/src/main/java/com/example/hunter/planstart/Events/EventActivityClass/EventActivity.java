@@ -11,12 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.hunter.planstart.Events.EventParticipantDetails;
+import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
 public class EventActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     //This is our tablayout
     private TabLayout tabLayout;
+    EventsOne event;
+
 
     //This is our viewPager
     private ViewPager viewPager;
@@ -27,8 +30,12 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         setContentView(R.layout.activity_event);
 
         Intent intent=getIntent();
-        String name = intent.getStringExtra("title");
-        setTitle(name);
+      //  String name = intent.getStringExtra("title");
+        event=(EventsOne)intent.getSerializableExtra("EventObject");
+        setTitle(event.getEvent_name());
+        //    int event_id=intent.getIntExtra("event_id",);
+
+
 
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -40,7 +47,9 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(EventActivity.this, EventParticipantDetails.class);
-        startActivity(intent);
+
+                intent.putExtra("EventObject",event);
+                startActivity(intent);
 //                Toast.makeText(EventActivity.this,"Toolbar title clicked", Toast.LENGTH_SHORT).show();
             }
         });
