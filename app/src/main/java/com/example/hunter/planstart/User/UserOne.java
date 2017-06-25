@@ -21,7 +21,6 @@ public class UserOne {
     {
 
         this.user_id=user_id;
-
         this.firstname=firstname;
         this.lastname=lastname;
         this.username=username;
@@ -77,4 +76,8 @@ public class UserOne {
         return password;
     }
 
+    public int getUser_id()
+    {
+        return user_id;
+    }
 }

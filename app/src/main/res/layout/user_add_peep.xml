@@ -6,19 +6,21 @@
     <TextView
         android:id="@+id/fname"
         android:paddingLeft="35dp"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
 
     <TextView
      android:id="@+id/lname"
-
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/fname"/>
 
     <TextView
         android:id="@+id/username"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/lname"/>

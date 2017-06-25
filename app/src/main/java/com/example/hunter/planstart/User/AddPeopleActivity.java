@@ -26,188 +26,40 @@ public class AddPeopleActivity extends Activity {
 //private UserAdapter m_adapter;
 
     ArrayList<String> people;
+ArrayList<UserOne> ToBeAdded=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_people);
+        lvFirst=(ListView)findViewById(R.id.AddedListView);
+
         final AutoCompleteTextView actv;
         //final SearchPeep searchPeep = new SearchPeep();
         actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         actv.setTextColor(Color.RED);
+
+
         final UserAdapter adapter = new UserAdapter(this,android.R.layout.simple_dropdown_item_1line);
         actv.setAdapter(adapter);
         //when autocomplete is clicked
         actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String ParticipantName = adapter.getItem(position).getFirstName();
-                actv.setText(ParticipantName);
-            }
-        });
-
-    }
-/*        actv.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if(isOnline()) {
-                    new SearchPeep().execute(charSequence.toString());
-                }
-            else {
-                    Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-*/
-       // actv.setThreshold(1);//will start working from first character
-        //actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-
-        //etSearchbox = (EditText) findViewById(R.id.etSearchbox);
-        // lvFirst = (ListView) findViewById(R.id.lvFirst);
-        //lvFirst.setTextFilterEnabled(true);
-       /* etSearchbox.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                // TODO Auto-generated method stub
-if(isOnline()) {
-    new SearchPeep().execute(arg0.toString());
-}
-else {
-    Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
-}
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-
+               int user_id=adapter.getItem(position).getUser_id();
+                String firstname =adapter.getItem(position).getFirstName();
+                String lastname =adapter.getItem(position).getLastName();
+                String username =adapter.getItem(position).getUsername();
+                String email_id =adapter.getItem(position).getemailid();
+                String password =adapter.getItem(position).getPassword();
+                UserOne user = new UserOne(user_id, firstname, lastname, email_id, username, password);
+                ToBeAdded.add(user);
+                UserAdapter adapter2=new UserAdapter(getApplicationContext(),R.layout.user_add_peep,ToBeAdded);
+                lvFirst.setAdapter(adapter2);
+                actv.setText("");
             }
         });
     }
-*/
-
-    /*
-    private class SearchPeep extends AsyncTask<String,Void,String>
-    {
-        String JSON_STRING;
-        ArrayList<UserOne> value_array=new ArrayList<UserOne>();
-
-String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
-HttpHandler sh=new HttpHandler();
-
-        @Override
-        protected String doInBackground(String... params) {
-
-         String argument=params[0];
-
-            if(argument.equals("") || argument.equals("%") )
-            {
-                return "cool";
-            }
-            try {
-
-                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
-                {
-                    return "Not Connected or Server Down or No Signal";
-                }
-                URL url=new URL(addpeep_url);
-                HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                OutputStream outputStream=conn.getOutputStream();
-                String post_data= URLEncoder.encode("argument","UTF-8")+"="+URLEncoder.encode(argument,"UTF-8");
-                sh.WritetoOutputStream(outputStream,post_data);
-                outputStream.close();
-                InputStream inputStream = conn.getInputStream();
-                JSON_STRING = sh.convertStreamtoString(inputStream);
-                inputStream.close();
-                conn.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if(JSON_STRING!=null)
-            {
-                try{
-
-                    //Getting JSON Array node
-                    JSONArray results=new JSONArray(JSON_STRING);
-                    for(int i=0;i<results.length();i++)
-                    {
-
-                        JSONObject c=results.getJSONObject(i);
-
-                        int user_id=c.getInt("user_id");
-                        String firstname=c.getString("fname");
-                        String lastname=c.getString("lname");
-                        String username=c.getString("username");
-                        String email_id=c.getString("email_id");
-                        String password=c.getString("password");
-                        UserOne user=new UserOne(user_id,firstname,lastname,email_id,username,password);
-                        value_array.add(user);
-                    }
-
-                }catch(final JSONException e)
-                {
-                    //                Log.e(TAG,"Json Parsing error: "+e);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),"Json parsing error:"+e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }else{
-                //          Log.e(TAG,"Couldnt get Json from Server");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),"Couldnt get json from server.Check Logcat for possible errors",Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            return "cool";
-
-        }
-        protected void onPostExecute(String result)
-        {
-            if(result.equals("cool"))
-            {
-                m_adapter = new UserAdapter(getApplicationContext(),R.layout.user_add_peep,value_array);
-                actv.setThreshold(1);
-
-                actv.setAdapter(m_adapter);
-
-            }
-
-            if(result.equals("Not Connected or Server Down or No Signal")) {
-                Toast.makeText(getApplicationContext(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
-            }
-        }
-
-    }
-    */
 
     public boolean isOnline() {
 
