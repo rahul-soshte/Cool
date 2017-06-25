@@ -173,7 +173,6 @@ String Error="error";
                 inputStream.close();
                 httpURLConnection.disconnect();
                 return "Event Created";
-
             } catch (MalformedURLException e) {
                 return Error;
             } catch (IOException e) {

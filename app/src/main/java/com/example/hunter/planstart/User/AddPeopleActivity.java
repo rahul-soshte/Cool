@@ -1,40 +1,29 @@
 package com.example.hunter.planstart.User;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.hunter.planstart.CustomAdapter.UserAdapter;
-import com.example.hunter.planstart.HttpHandler;
-import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class AddPeopleActivity extends AppCompatActivity {
+public class AddPeopleActivity extends Activity {
     EditText etSearchbox;
     ListView lvFirst;
     //ArrayAdapter<String> adapter1;
     String[] data = {""};
-private UserAdapter m_adapter;
+
+//private UserAdapter m_adapter;
 
     ArrayList<String> people;
 
@@ -42,11 +31,53 @@ private UserAdapter m_adapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_people);
-        final SearchPeep searchPeep = new SearchPeep();
-        etSearchbox = (EditText) findViewById(R.id.etSearchbox);
-        lvFirst = (ListView) findViewById(R.id.lvFirst);
-        lvFirst.setTextFilterEnabled(true);
-        etSearchbox.addTextChangedListener(new TextWatcher() {
+        final AutoCompleteTextView actv;
+        //final SearchPeep searchPeep = new SearchPeep();
+        actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        actv.setTextColor(Color.RED);
+        final UserAdapter adapter = new UserAdapter(this,android.R.layout.simple_dropdown_item_1line);
+        actv.setAdapter(adapter);
+        //when autocomplete is clicked
+        actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String ParticipantName = adapter.getItem(position).getFirstName();
+                actv.setText(ParticipantName);
+            }
+        });
+
+    }
+/*        actv.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if(isOnline()) {
+                    new SearchPeep().execute(charSequence.toString());
+                }
+            else {
+                    Toast.makeText(getApplicationContext(),"Not Connected to Internet", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+*/
+       // actv.setThreshold(1);//will start working from first character
+        //actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
+        //etSearchbox = (EditText) findViewById(R.id.etSearchbox);
+        // lvFirst = (ListView) findViewById(R.id.lvFirst);
+        //lvFirst.setTextFilterEnabled(true);
+       /* etSearchbox.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
@@ -73,7 +104,9 @@ else {
             }
         });
     }
+*/
 
+    /*
     private class SearchPeep extends AsyncTask<String,Void,String>
     {
         String JSON_STRING;
@@ -106,12 +139,9 @@ HttpHandler sh=new HttpHandler();
                 sh.WritetoOutputStream(outputStream,post_data);
                 outputStream.close();
                 InputStream inputStream = conn.getInputStream();
-
                 JSON_STRING = sh.convertStreamtoString(inputStream);
                 inputStream.close();
                 conn.disconnect();
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -126,13 +156,13 @@ HttpHandler sh=new HttpHandler();
                     {
 
                         JSONObject c=results.getJSONObject(i);
+
                         int user_id=c.getInt("user_id");
                         String firstname=c.getString("fname");
                         String lastname=c.getString("lname");
                         String username=c.getString("username");
                         String email_id=c.getString("email_id");
                         String password=c.getString("password");
-
                         UserOne user=new UserOne(user_id,firstname,lastname,email_id,username,password);
                         value_array.add(user);
                     }
@@ -165,14 +195,20 @@ HttpHandler sh=new HttpHandler();
             if(result.equals("cool"))
             {
                 m_adapter = new UserAdapter(getApplicationContext(),R.layout.user_add_peep,value_array);
-                lvFirst.setAdapter(m_adapter);
+                actv.setThreshold(1);
+
+                actv.setAdapter(m_adapter);
+
             }
+
             if(result.equals("Not Connected or Server Down or No Signal")) {
                 Toast.makeText(getApplicationContext(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
             }
         }
 
     }
+    */
+
     public boolean isOnline() {
 
         ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
