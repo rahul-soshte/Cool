@@ -51,6 +51,7 @@ EventsOne event;
                 backgroundWorker.execute(type,Integer.toString(event.getEvent_id()),event.getEvent_name());
             }
         });
+
         lvFirst=(ListView)findViewById(R.id.AddedListView);
 
         final AutoCompleteTextView actv;
@@ -59,7 +60,7 @@ EventsOne event;
         actv.setTextColor(Color.RED);
 
 
-        final UserAdapter adapter = new UserAdapter(this,android.R.layout.simple_dropdown_item_1line);
+        final UserAdapter adapter = new UserAdapter(this,android.R.layout.simple_dropdown_item_1line,event);
         actv.setAdapter(adapter);
         //when autocomplete is clicked
         actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

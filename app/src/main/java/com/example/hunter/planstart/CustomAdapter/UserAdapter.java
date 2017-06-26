@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
+import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
@@ -32,10 +33,12 @@ import java.util.ArrayList;
 
 public class UserAdapter extends ArrayAdapter {
     private ArrayList<UserOne> users;
+    EventsOne event;
 
-    public UserAdapter(Context context, int resource) {
+    public UserAdapter(Context context, int resource,EventsOne event) {
         super(context, resource);
         users = new ArrayList<>();
+        this.event=event;
     }
 
 
@@ -116,7 +119,8 @@ public class UserAdapter extends ArrayAdapter {
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 OutputStream outputStream = conn.getOutputStream();
-                String post_data = URLEncoder.encode("argument", "UTF-8") + "=" + URLEncoder.encode(argument, "UTF-8");
+                String post_data = URLEncoder.encode("argument", "UTF-8") + "=" + URLEncoder.encode(argument, "UTF-8")
+                        +"&"+URLEncoder.encode("event_id", "UTF-8") + "=" + URLEncoder.encode(Integer.toString(event.getEvent_id()), "UTF-8");
                 sh.WritetoOutputStream(outputStream, post_data);
                 outputStream.close();
                 InputStream inputStream = conn.getInputStream();
@@ -129,7 +133,6 @@ public class UserAdapter extends ArrayAdapter {
 
             if (JSON_STRING != null) {
                 try {
-
                     //Getting JSON Array node
                     JSONArray results = new JSONArray(JSON_STRING);
                     for (int i = 0; i < results.length(); i++) {

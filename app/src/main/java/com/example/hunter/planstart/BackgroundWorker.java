@@ -216,7 +216,6 @@ String Error="error";
                 //Convert arraylist to JSON String
                 String json=sh.convertarraylisttojson(users);
 
-
                 String post_data= URLEncoder.encode("event_id","UTF-8")+"="+URLEncoder.encode(event_id,"UTF-8")+"&"
                         +URLEncoder.encode("json","UTF-8")+"="+URLEncoder.encode(json,"UTF-8");
 
