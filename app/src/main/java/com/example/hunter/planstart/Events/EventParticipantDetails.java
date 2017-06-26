@@ -60,6 +60,7 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventParticipantDetails.this, AddPeopleActivity.class);
+                intent.putExtra("EventObject",event);
                 startActivity(intent);
             }
         });

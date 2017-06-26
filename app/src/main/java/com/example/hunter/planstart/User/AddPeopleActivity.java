@@ -2,6 +2,7 @@ package com.example.hunter.planstart.User;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,10 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.hunter.planstart.BackgroundWorker;
 import com.example.hunter.planstart.CustomAdapter.UserAdapter;
+import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.R;
 
 import java.util.ArrayList;
@@ -22,16 +26,31 @@ public class AddPeopleActivity extends Activity {
     ListView lvFirst;
     //ArrayAdapter<String> adapter1;
     String[] data = {""};
+Button DoneButton;
 
 //private UserAdapter m_adapter;
 
     ArrayList<String> people;
 ArrayList<UserOne> ToBeAdded=new ArrayList<>();
-
+EventsOne event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_people);
+
+        Intent intent=getIntent();
+        event=(EventsOne)intent.getSerializableExtra("EventObject");
+
+
+    DoneButton=(Button)findViewById(R.id.donebutton);
+        DoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String type="addpeep";
+                BackgroundWorker backgroundWorker=new BackgroundWorker(getApplicationContext(),ToBeAdded);
+                backgroundWorker.execute(type,Integer.toString(event.getEvent_id()),event.getEvent_name());
+            }
+        });
         lvFirst=(ListView)findViewById(R.id.AddedListView);
 
         final AutoCompleteTextView actv;

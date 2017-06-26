@@ -7,9 +7,11 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.Events.EventActivityClass.EventActivity;
+import com.example.hunter.planstart.Events.EventParticipantDetails;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
+import com.example.hunter.planstart.User.UserOne;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by Rahul on 21-05-2017.
@@ -28,8 +31,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 String user_email;
 String eventname;
     EventsOne event;
-    Boolean eventcreatedboolean=false;
 
+    private ArrayList<UserOne> users;
 
 HttpHandler sh=new HttpHandler();
 
@@ -40,10 +43,12 @@ String Error="error";
     public BackgroundWorker(Context ctx)
     {
         context=ctx;
- //       mWeakActivity = new WeakReference<Activity>((SignupActivity)ctx);
 
-
-
+    }
+    public BackgroundWorker(Context ctx, ArrayList<UserOne> users)
+    {
+        context=ctx;
+        this.users=users;
     }
     @Override
     protected String doInBackground(String... params) {
@@ -53,6 +58,7 @@ String Error="error";
         String createevent_url="http://192.168.42.151/Planmap/createevent.php";
         String listevents_url="http://192.168.42.151/Planmap/events_json.php";
         String checkusername_url="http://192.168.42.151/Planmap/checkusername.php";
+        String addpeepurl="http://192.168.42.151/Planmap/addtheselectedpeep.php";
 
         if(type.equals("login"))
         {
@@ -183,6 +189,58 @@ String Error="error";
                 return Error;
             }
         }
+        if(type.equals("addpeep"))
+        {
+            String event_id=params[1];
+            eventname=params[2];
+
+
+            if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+            {
+                return "Not Connected or Server Down or No Signal";
+
+            }
+            try {
+
+                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                {
+                    return "Not Connected or Server Down or No Signal";
+
+                }
+                URL url=new URL(addpeepurl);
+                HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream=httpURLConnection.getOutputStream();
+
+                //Convert arraylist to JSON String
+                String json=sh.convertarraylisttojson(users);
+
+
+                String post_data= URLEncoder.encode("event_id","UTF-8")+"="+URLEncoder.encode(event_id,"UTF-8")+"&"
+                        +URLEncoder.encode("json","UTF-8")+"="+URLEncoder.encode(json,"UTF-8");
+
+                sh.WritetoOutputStream(outputStream,post_data);
+                outputStream.close();
+                InputStream inputStream=httpURLConnection.getInputStream();
+                String result=sh.convertStreamToStringWithoutNewline(inputStream);
+                event=new EventsOne(Integer.valueOf(event_id),eventname);
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            } catch (MalformedURLException e) {
+                return Error;
+            } catch (IOException e) {
+                return Error;
+            }
+
+            catch (Exception e)
+            {
+                return Error;
+            }
+
+
+        }
         /*
         else if (type.equals("checkusername"))
         {
@@ -280,7 +338,19 @@ String username=params[1];
             intent.putExtra("EventObject",event);
             context.startActivity(intent);
             Toast.makeText(context,"Event Created", Toast.LENGTH_LONG).show();
+
         }
+        if(result.equals("Users successfully added"))
+        {
+            Intent intent=new Intent(context,EventParticipantDetails.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("EventObject",event);
+            context.startActivity(intent);
+            Toast.makeText(context,"Users added", Toast.LENGTH_LONG).show();
+
+        }
+
 
         Toast.makeText(context,result, Toast.LENGTH_LONG).show();
     }

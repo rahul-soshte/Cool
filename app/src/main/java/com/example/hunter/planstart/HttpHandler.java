@@ -2,6 +2,9 @@ package com.example.hunter.planstart;
 
 import android.util.Log;
 
+import com.example.hunter.planstart.User.UserOne;
+import com.google.gson.Gson;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by hunter on 2/5/17.
@@ -115,6 +119,21 @@ private static final String TAG=HttpHandler.class.getSimpleName();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public String convertarraylisttojson(ArrayList<UserOne> users)
+    {
+        String json;
+        ArrayList<String> mylist = new ArrayList<String> ();
+       // String json = new Gson().toJson(mylist);
+        for(int i=0;i<users.size();i++)
+        {
+            mylist.add(Integer.toString(users.get(i).getUser_id()));
+        }
+        json = new Gson().toJson(mylist);
+
+      return json;
 
     }
 

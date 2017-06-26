@@ -25,20 +25,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
-
     // Dependency for Google Sign-In
-
     // Dependencies for the REST API example
-
-
     compile('com.google.apis:google-api-services-drive:v2-rev170-1.20.0') {
         exclude module: 'httpclient' //by artifact name
         exclude group: 'org.apache.httpcomponents' //by group
         exclude group: 'org.apache.httpcomponents', module: 'httpclient' //by both name and group
 
     }
-
-
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'com.google.android.gms:play-services-auth:10.2.1'
@@ -52,6 +46,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     androidTestCompile 'com.android.support:support-annotations:25.0.1'
+    compile 'com.google.code.gson:gson:2.8.1'
 }
 
 //apply plugin: 'com.google.gms.google-services'
