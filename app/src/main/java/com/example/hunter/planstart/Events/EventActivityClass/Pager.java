@@ -30,8 +30,8 @@ public class Pager extends FragmentStatePagerAdapter {
                 ChatTab1 chatTab1 = new ChatTab1();
                 return chatTab1;
             case 1:
-                VenueTab2 venueTab2= new VenueTab2();
-                return venueTab2;
+                PlanRoom planRoom = new PlanRoom();
+                return planRoom;
             default:
                 return null;
         }

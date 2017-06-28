@@ -13,6 +13,7 @@ public class UserOne {
 //    public double GpsLat;
   //  public double GpsLong;
     //public int contactno;
+
     public String email_id;
     public String password;
     String username;

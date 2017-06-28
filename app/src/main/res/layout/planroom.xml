@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#f5f5f5"
     >
 
-    <TextView
-        android:id="@+id/textView"
+    <ListView
+        android:id="@+id/Toolslist"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Plan Room"
-        android:background="@color/oil"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:background="#404040"
+        />
 
 </RelativeLayout>

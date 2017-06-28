@@ -69,6 +69,7 @@ SessionManager session;
         //String [] events=res.getStringArray(R.array.event_list);
         //ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,android.R.id.text1,events);
         //EventList.setAdapter(adapter);
+
         session = new SessionManager(getActivity().getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
 

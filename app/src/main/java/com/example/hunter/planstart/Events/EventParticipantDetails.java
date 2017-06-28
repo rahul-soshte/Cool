@@ -65,6 +65,7 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
             }
         });
 
+
         HashMap<String, String> user = session.getUserDetails();
         // name
         String name = user.get(SessionManager.KEY_NAME);
