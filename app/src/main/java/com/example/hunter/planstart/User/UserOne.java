@@ -10,8 +10,9 @@ public class UserOne {
 
     public String firstname;
     public String lastname;
-//    public double GpsLat;
-  //  public double GpsLong;
+
+    public double GpsLat;
+    public double GpsLong;
     //public int contactno;
 
     public String email_id;
@@ -20,16 +21,18 @@ public class UserOne {
 
     public UserOne(int user_id,String firstname,String lastname, String email_id,String username,String password)
     {
-
         this.user_id=user_id;
         this.firstname=firstname;
         this.lastname=lastname;
         this.username=username;
         this.email_id=email_id;
         this.password=password;
-
     }
-    /*
+    public UserOne(int user_id)
+    {
+        this.user_id=user_id;
+    }
+
     public void setGpsLatLong(double latitude,double longitude)
     {
         this.GpsLat=latitude;
@@ -37,11 +40,13 @@ public class UserOne {
         this.GpsLong=longitude;
 
     }
-
+    /*
      public int getContactNo()
     {
         return contactno;
     }
+  */
+
     public double getGpsLat()
     {
         return GpsLat;
@@ -51,7 +56,6 @@ public class UserOne {
     {
         return GpsLong;
     }
-*/
 
     public String getFirstName()
     {

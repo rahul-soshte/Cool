@@ -10,12 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.hunter.planstart.CoreFunctionality.GetCenter;
 import com.example.hunter.planstart.Events.EventParticipantDetails;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
-public class EventActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class EventActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,PlanRoom.PlanToolListListener {
     //This is our tablayout
     private TabLayout tabLayout;
     EventsOne event;
@@ -77,9 +78,23 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
-
     }
+    @Override
+    public void itemClicked(int id)
+    {
+        if(id==0)
+        {
+            Intent myIntent = new Intent(getApplicationContext(),GetCenter.class);
+             myIntent.putExtra("EventObject",event);
+                startActivity(myIntent);
+        }
+    }
+
+
+   // public static EventsOne getEvent()
+    //{
+     //   return event;
+    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

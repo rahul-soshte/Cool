@@ -1,6 +1,6 @@
 package com.example.hunter.planstart.Events.EventActivityClass;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.hunter.planstart.CoreFunctionality.GetCenter;
+import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.R;
 
 /**
@@ -21,7 +21,11 @@ import com.example.hunter.planstart.R;
 public class PlanRoom extends Fragment {
     ListView PlanTools;
     String[] Tools = {"GetCenter Tool", "Suggestion Tool", "Merge Similiar Events","Schedule","Carpool"};
-
+EventsOne event;
+static interface PlanToolListListener{
+    void itemClicked(int id);
+}
+private PlanToolListListener listener;
     //Overriden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,19 +43,25 @@ public class PlanRoom extends Fragment {
         PlanTools.setAdapter(adapter);
 
         PlanTools.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-if(position==0) {
-    Intent myIntent = new Intent(getActivity().getApplicationContext(), GetCenter.class);
+    //Intent myIntent = new Intent(getActivity().getApplicationContext(), GetCenter.class);
     // myIntent.putExtra("EventObject",event);
-
     // myIntent.putExtra("title",eventname);
-
-    startActivity(myIntent);
+    listener.itemClicked(position);
+   // myIntent.putExtra("EventObject",event);
+    //    startActivity(myIntent);
 }
 
-            }
-
         });
-
     }
+
+    @Override
+    public void onAttach(Activity activity)
+    {
+     super.onAttach(activity);
+        this.listener=(PlanToolListListener)activity;
+    }
+
+
 }
