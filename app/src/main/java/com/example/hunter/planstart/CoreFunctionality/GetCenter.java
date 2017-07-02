@@ -11,11 +11,15 @@ import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.User.UserOne;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -33,7 +37,7 @@ import java.util.ArrayList;
 public class GetCenter extends FragmentActivity implements OnMapReadyCallback {
 
     ArrayList<UserOne> user_coordinates=new ArrayList<UserOne>();
-
+ArrayList<Marker> markers=new ArrayList<>();
     private GoogleMap mMap;
      EventsOne event;
 
@@ -177,10 +181,35 @@ protected void onPostExecute(String result)
             {
                 user_coordinates.get(i).getGpsLat();
                 LatLng latLng = new LatLng(user_coordinates.get(i).getGpsLat(),user_coordinates.get(i).getGpsLong());
-                mMap.addMarker(new MarkerOptions().position(latLng).title(Integer.toString(user_coordinates.get(i).getUser_id())));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                Marker marker=mMap.addMarker(new MarkerOptions().position(latLng).title(Integer.toString(user_coordinates.get(i).getUser_id())));
+               markers.add(marker);
+
+                // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
             }
+
+        }
+        if(markers.size()==1)
+        {
+            CameraPosition cameraPosition=new CameraPosition.Builder().target(markers.get(0).getPosition()).zoom(12).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        }else {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+            for (Marker marker : markers) {
+                builder.include(marker.getPosition());
+            }
+
+            LatLngBounds bounds = builder.build();
+            int padding = 50; // offset from edges of the map in pixels
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+            mMap.animateCamera(cu);
+            LatLng latLng;
+            latLng = bounds.getCenter();
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Center"));
+
         }
     }
 
