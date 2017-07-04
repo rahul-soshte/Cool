@@ -32,7 +32,9 @@ public class UserOne {
     {
         this.user_id=user_id;
     }
-
+/*
+setter methods
+ */
     public void setGpsLatLong(double latitude,double longitude)
     {
         this.GpsLat=latitude;
@@ -40,13 +42,20 @@ public class UserOne {
         this.GpsLong=longitude;
 
     }
+public void setUsername(String username)
+{
+    this.username=username;
+
+}
     /*
      public int getContactNo()
     {
         return contactno;
     }
   */
-
+/*
+Getter Methods
+ */
     public double getGpsLat()
     {
         return GpsLat;

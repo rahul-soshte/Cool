@@ -17,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -74,6 +75,7 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         //Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -132,9 +134,10 @@ if(type.equals("Plotting")) {
                 user_id = jsonObject.getInt("user_id_fk");
                 userlat = jsonObject.getDouble("UserLat");
                 userLong = jsonObject.getDouble("UserLong");
-
+                String username=jsonObject.getString("username");
                 UserOne user = new UserOne(user_id);
                 user.setGpsLatLong(userlat, userLong);
+                user.setUsername(username);
                 user_coordinates.add(user);
             }
         } catch (final JSONException e) {
@@ -259,7 +262,7 @@ protected void onPostExecute(String result)
                 user_coordinates.get(i).getGpsLat();
                 LatLng latLng = new LatLng(user_coordinates.get(i).getGpsLat(),user_coordinates.get(i).getGpsLong());
 
-                Marker marker=mMap.addMarker(new MarkerOptions().position(latLng).title(Integer.toString(user_coordinates.get(i).getUser_id())));
+                Marker marker=mMap.addMarker(new MarkerOptions().position(latLng).title(user_coordinates.get(i).getUsername()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                markers.add(marker);
 
                 // mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -298,7 +301,7 @@ protected void onPostExecute(String result)
 
             latLng = bounds.getCenter();
 
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Center"));
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
             String type="Suggestion";
 
@@ -314,7 +317,7 @@ protected void onPostExecute(String result)
         for(i=0;i<places.size();i++) {
 
             LatLng latLng = new LatLng(places.get(i).getLatitude(), places.get(i).getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title(places.get(i).getPlaceName()));
+            mMap.addMarker(new MarkerOptions().position(latLng).title(places.get(i).getPlaceName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
         }
 
     }
