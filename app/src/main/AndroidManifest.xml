@@ -65,9 +65,7 @@
         <activity
             android:name=".CoreFunctionality.GetCenter"
             android:label="GetCenter Tool"
-            android:theme="@style/AppTheme"
-            />
-
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

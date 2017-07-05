@@ -75,5 +75,13 @@
     <string name="server_client_id">300801915076-jcd15ou7n4o87kmcu1gno2114urrnu44.apps.googleusercontent.com</string>
     <string name="title_activity_event_participant_details">EventParticipantDetails</string>
     <string name="title_activity_get_center">Map</string>
+    <string name="title_activity_get_center_one">GetCenterOne</string>
+
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+
+    <string-array name="titles">
+        <item>Place Filtering</item>
+    </string-array>
 
 </resources>

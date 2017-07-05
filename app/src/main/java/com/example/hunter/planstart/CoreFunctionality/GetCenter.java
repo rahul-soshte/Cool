@@ -60,6 +60,7 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     /**
@@ -81,7 +82,6 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
      String type="Plotting";
-
         new GetCenterofUsers().execute(type);
 
 
@@ -178,32 +178,13 @@ if(type.equals("Suggestion"))
             for(int i=0;i<results.length();i++)
             {
                 JSONObject c=results.getJSONObject(i);
-                //  String id=c.getString("id");
                 String name=c.getString("name");
                 String place_id=c.getString("place_id");
-
-                // String address=c.getString("address");
-                // String gender=c.getString("gender");
-                //pHone node is JSON object
-                //JSONObject phone=c.getJSONObject("phone");
                 JSONObject geometry=c.getJSONObject("geometry");
                 JSONObject location=geometry.getJSONObject("location");
                 double lat=location.getDouble("lat");
                 double longi=location.getDouble("lng");
-
-                //String mobile=phone.getString("mobile");
-                //String home=phone.getString("home");
-                //String office=phone.getString("office");
-                //HashMap<String,String> place=new HashMap<>();
                 PlacesOne place=new PlacesOne(name,lat,longi);
-                //contact.put("id",id);
-                    /*
-                    place.put("name",name);
-                    place.put("place_id",place_id);
-                    place.put("long",longi);
-                    place.put("lat",lat);
-                    */
-                //contact.put("mobile",mobile);
                 places.add(place);
             }
         }catch(final JSONException e)
