@@ -157,7 +157,8 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to check GPS/wifi enabled
      * @return boolean
      * */
-    public boolean canGetLocation() {
+    public boolean canGetLocation()
+    {
         return this.canGetLocation;
     }
 
