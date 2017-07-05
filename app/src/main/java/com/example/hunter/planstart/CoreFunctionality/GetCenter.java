@@ -4,9 +4,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.Events.EventsOne;
+import com.example.hunter.planstart.GPS.GPSTracker;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Places.PlacesOne;
@@ -40,7 +46,9 @@ import java.util.ArrayList;
 // AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns
 
 public class GetCenter extends AppCompatActivity implements OnMapReadyCallback {
+Button EditLocationButton;
 
+    GPSTracker gps;
     ArrayList<UserOne> user_coordinates=new ArrayList<UserOne>();
 ArrayList<Marker> markers=new ArrayList<>();
     ArrayList<PlacesOne> places=new ArrayList<>();
@@ -52,6 +60,7 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_center);
+        EditLocationButton=(Button)findViewById(R.id.editloc);
 
         Intent intent=getIntent();
         event=(EventsOne)intent.getSerializableExtra("EventObject");
@@ -61,8 +70,57 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+       registerForContextMenu(EditLocationButton);
     }
 
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+       /*Reference
+        https://dzone.com/articles/context-menu-android-tutorial
+         */
+
+        switch (item.getItemId()) {
+            case R.id.GPS:
+                TrackandMark();
+                return true;
+            case R.id.Autocomplete:
+                Toast.makeText(this,"Not Cool",Toast.LENGTH_LONG).show();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    /*Reference
+http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
+ */
+    public void TrackandMark(){
+        gps=new GPSTracker(GetCenter.this);
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+
+            // \n is for new line
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
+    }
+
+    public void onHelp(View v) {
+        openContextMenu(v);
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -76,7 +134,6 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         //Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -84,8 +141,10 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
      String type="Plotting";
         new GetCenterofUsers().execute(type);
 
-
     }
+
+
+
     private class GetCenterofUsers extends AsyncTask<String,Void,String>
     {
         String radius="1000";
@@ -101,6 +160,7 @@ String suggestion_url="https://maps.googleapis.com/maps/api/place/nearbysearch/j
         @Override
         protected String doInBackground(String... params) {
             String type=params[0];
+
 if(type.equals("Plotting")) {
     if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
         return "Not Connected or Server Down or No Signal";
@@ -134,10 +194,12 @@ if(type.equals("Plotting")) {
                 user_id = jsonObject.getInt("user_id_fk");
                 userlat = jsonObject.getDouble("UserLat");
                 userLong = jsonObject.getDouble("UserLong");
+                String useremail=jsonObject.getString("email_id");
                 String username=jsonObject.getString("username");
                 UserOne user = new UserOne(user_id);
                 user.setGpsLatLong(userlat, userLong);
                 user.setUsername(username);
+                user.setEmail_id(useremail);
                 user_coordinates.add(user);
             }
         } catch (final JSONException e) {
@@ -212,9 +274,10 @@ if(type.equals("Suggestion"))
 
 }
 
-return "cool";
+return "nothing";
 
         }
+
 
 
         @Override
@@ -284,8 +347,8 @@ protected void onPostExecute(String result)
 
             mMap.addMarker(new MarkerOptions().position(latLng).title("Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-            String type="Suggestion";
 
+            String type="Suggestion";
             new GetCenterofUsers().execute(type,Double.toString(latLng.latitude),Double.toString(latLng.longitude));
 
         }

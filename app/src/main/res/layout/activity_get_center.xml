@@ -15,6 +15,7 @@
    <Button
        android:id="@+id/editloc"
        android:layout_alignParentBottom="true"
+       android:onClick="onHelp"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text="Edit your Location" />
