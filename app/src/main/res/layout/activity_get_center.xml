@@ -20,5 +20,13 @@
        android:layout_height="wrap_content"
        android:text="Edit your Location" />
 
+   <Button
+    android:id="@+id/PlaceFilter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/editloc"
+       android:layout_alignParentBottom="true"
+    android:text="Filter Place Suggestion"
+    />
 
 </RelativeLayout>

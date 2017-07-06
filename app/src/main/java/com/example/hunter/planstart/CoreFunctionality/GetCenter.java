@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.GPS.GPSTracker;
@@ -75,6 +78,35 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_center);
+        Button btn = (Button) findViewById(R.id.PlaceFilter);
+
+        OnClickListener listener = new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                /** Instantiating PopupMenu class */
+                PopupMenu popup = new PopupMenu(getBaseContext(), v);
+
+                /** Adding menu items to the popumenu */
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                /** Defining menu item click listener for the popup menu */
+                popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(getBaseContext(), "You selected the action : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                /** Showing the popup menu */
+                popup.show();
+
+            }
+        };
+
+        btn.setOnClickListener(listener);
         EditLocationButton=(Button)findViewById(R.id.editloc);
 
         session = new SessionManager(getApplicationContext());
@@ -94,6 +126,7 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
        registerForContextMenu(EditLocationButton);
     }

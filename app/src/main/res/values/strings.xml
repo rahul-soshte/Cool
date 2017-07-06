@@ -83,5 +83,8 @@
     <string-array name="titles">
         <item>Place Filtering</item>
     </string-array>
+    <string name="action1">Action1</string>
+    <string name="action2">Action2</string>
+    <string name="action3">Action3</string>
 
 </resources>
