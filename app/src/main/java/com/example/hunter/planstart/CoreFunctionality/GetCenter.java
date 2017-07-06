@@ -22,6 +22,8 @@ import com.example.hunter.planstart.User.UserOne;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -64,7 +66,7 @@ SessionManager session;
     ArrayList<UserOne> user_coordinates=new ArrayList<UserOne>();
 ArrayList<Marker> markers=new ArrayList<>();
     ArrayList<PlacesOne> places=new ArrayList<>();
-    
+
     private GoogleMap mMap;
      EventsOne event;
 String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
@@ -96,8 +98,45 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
        registerForContextMenu(EditLocationButton);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_AUTOCOMPLETE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                LatLng latLng=place.getLatLng();
+                double latitude = latLng.latitude;
+                double longitude = latLng.longitude;
+                String type="ChangeLocation";
+                new GetCenterofUsers().execute(type,Double.toString(latitude),Double.toString(longitude));
+
+                // Log.i(TAG, "Place Selected: " + place.getName());
+               // mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(), place.getId(), place.getAddress(), place.getPhoneNumber(), place.getWebsiteUri()));
+       /*         CharSequence attributions = place.getAttributions();
+                if (!TextUtils.isEmpty(attributions)) {
+                    mPlaceAttriibution.setText(Html.fromHtml(attributions.toString()));
 
 
+                } else {
+                    mPlaceAttriibution.setText("");
+                }
+                */
+            }
+            else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                //Log.e(TAG, "Error:Status=" + status.toString());
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+            }
+        }
+    }
+/*
+    private static Spanned formatPlaceDetails(Resources res, CharSequence name, String id, CharSequence address, CharSequence phoneNumber, Uri websiteUri) {
+    //    Log.e(TAG, res.getString(R.string.place_details, name, id, address, phoneNumber, websiteUri));
+      //  return Html.fromHtml(res.getString(R.string.place_details, name, id, address, phoneNumber, websiteUri));
+
+    }
+*/
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
