@@ -15,6 +15,7 @@ import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.GPS.GPSTracker;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
+import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.Places.PlacesOne;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.User.UserOne;
@@ -41,12 +42,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //Google Places API Web Service
 // AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns
 
 public class GetCenter extends AppCompatActivity implements OnMapReadyCallback {
 Button EditLocationButton;
+SessionManager session;
+    String user_email;
 
     GPSTracker gps;
     ArrayList<UserOne> user_coordinates=new ArrayList<UserOne>();
@@ -61,6 +65,16 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_center);
         EditLocationButton=(Button)findViewById(R.id.editloc);
+
+        session = new SessionManager(getApplicationContext());
+
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        //name = user.get(SessionManager.KEY_NAME);
+
+        // email
+        user_email = user.get(SessionManager.KEY_EMAIL);
 
         Intent intent=getIntent();
         event=(EventsOne)intent.getSerializableExtra("EventObject");
@@ -107,9 +121,12 @@ http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
 
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
+            String type="ChangeLocation";
+            new GetCenterofUsers().execute(type,Double.toString(latitude),Double.toString(longitude));
+
 
             // \n is for new line
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         }else{
             // can't get location
             // GPS or Network is not enabled
@@ -121,6 +138,7 @@ http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
     public void onHelp(View v) {
         openContextMenu(v);
     }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -154,8 +172,10 @@ http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
 
         String result="";
 HttpHandler sh=new HttpHandler();
+
       String coordinates_url="http://192.168.42.151/Planmap/getcoordinates.php";
 String suggestion_url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
+        String changelocation="http://192.168.42.151/Planmap/changecoordinates.php";
         String event_id=Integer.toString(event.getEvent_id());
 
         @Override
@@ -271,7 +291,40 @@ if(type.equals("Suggestion"))
 
     }
 
+
     return "Suggested";
+
+}
+
+if(type.equals("ChangeLocation"))
+{
+    String latitude=params[1];
+    String longitude=params[2];
+
+    if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
+        return "Not Connected or Server Down or No Signal";
+    }
+    try {
+        URL url = new URL(changelocation);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestMethod("POST");
+        httpURLConnection.setDoInput(true);
+        OutputStream outputStream = httpURLConnection.getOutputStream();
+        String post_data = URLEncoder.encode("event_id", "UTF-8") + "=" + URLEncoder.encode(event_id, "UTF-8")+"&"+
+                URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8")+"&"+
+                URLEncoder.encode("latitude","UTF-8")+"="+URLEncoder.encode(latitude,"UTF-8")+"&"+
+                URLEncoder.encode("longitude","UTF-8")+"="+URLEncoder.encode(longitude,"UTF-8");
+
+        sh.WritetoOutputStream(outputStream, post_data);
+        outputStream.close();
+        InputStream inputStream = httpURLConnection.getInputStream();
+        result = sh.convertStreamToStringWithoutNewline(inputStream);
+        inputStream.close();
+        httpURLConnection.disconnect();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return result;
 
 }
 
@@ -291,6 +344,15 @@ protected void onPostExecute(String result)
     if(result.equals("Suggested"))
     {
      PlotSuggestionPoints();
+    }
+    if(result.equals("Changed"))
+    {
+        mMap.clear();
+        user_coordinates.clear();
+        places.clear();
+        markers.clear();
+        String type="Plotting";
+        new GetCenterofUsers().execute(type);
     }
 
 }
@@ -347,7 +409,6 @@ protected void onPostExecute(String result)
             latLng = bounds.getCenter();
 
             mMap.addMarker(new MarkerOptions().position(latLng).title("Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
 
             String type="Suggestion";
             new GetCenterofUsers().execute(type,Double.toString(latLng.latitude),Double.toString(latLng.longitude));
