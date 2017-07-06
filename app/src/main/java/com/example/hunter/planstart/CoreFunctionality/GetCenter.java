@@ -19,6 +19,10 @@ import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.Places.PlacesOne;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.User.UserOne;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,19 +51,24 @@ import java.util.HashMap;
 //Google Places API Web Service
 // AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns
 
+
+//Google Places Android API Key
+// AIzaSyCvEmzifwbu6O3GuCMy8ONEtDJ0EfvapiE
 public class GetCenter extends AppCompatActivity implements OnMapReadyCallback {
 Button EditLocationButton;
 SessionManager session;
     String user_email;
 
+    private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     GPSTracker gps;
     ArrayList<UserOne> user_coordinates=new ArrayList<UserOne>();
 ArrayList<Marker> markers=new ArrayList<>();
     ArrayList<PlacesOne> places=new ArrayList<>();
-
+    
     private GoogleMap mMap;
      EventsOne event;
 String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +96,8 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
        registerForContextMenu(EditLocationButton);
     }
 
+
+
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
@@ -103,7 +114,7 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
                 TrackandMark();
                 return true;
             case R.id.Autocomplete:
-                Toast.makeText(this,"Not Cool",Toast.LENGTH_LONG).show();
+                OverlayAutoComplete();
                 return true;
 
             default:
@@ -114,6 +125,24 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
     /*Reference
 http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
  */
+    public void OverlayAutoComplete()
+    {
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                    .build(this);
+            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+
+
+        } catch (GooglePlayServicesRepairableException e) {
+            GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(), 0).show();
+
+        } catch (GooglePlayServicesNotAvailableException e) {
+            String message = "Google Play Services is not available:" + GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+         //   Log.e(TAG, message);
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void TrackandMark(){
         gps=new GPSTracker(GetCenter.this);
         // check if GPS enabled
@@ -358,8 +387,6 @@ protected void onPostExecute(String result)
 }
     }
 
-
-
     public void PlotUserPoints()
     {
         if(!user_coordinates.isEmpty() && user_coordinates!=null )
@@ -411,6 +438,7 @@ protected void onPostExecute(String result)
             mMap.addMarker(new MarkerOptions().position(latLng).title("Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
             String type="Suggestion";
+
             new GetCenterofUsers().execute(type,Double.toString(latLng.latitude),Double.toString(latLng.longitude));
 
         }
@@ -419,7 +447,6 @@ protected void onPostExecute(String result)
     public void PlotSuggestionPoints()
     {
         int i;
-
         for(i=0;i<places.size();i++) {
 
             LatLng latLng = new LatLng(places.get(i).getLatitude(), places.get(i).getLongitude());
