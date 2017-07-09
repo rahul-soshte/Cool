@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 
 public class EventAdapter extends ArrayAdapter {
+
     private ArrayList<EventsOne> events;
 
     public EventAdapter(Context context, int textViewResourceId, ArrayList<EventsOne> events)

@@ -8,11 +8,9 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-import android.view.View.OnClickListener;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.GPS.GPSTracker;
@@ -84,25 +82,8 @@ String API_KEY="AIzaSyDiJ02luwrL_VxUo3E4al2eJqo45mSEzns";
 
             @Override
             public void onClick(View v) {
-                /** Instantiating PopupMenu class */
-                PopupMenu popup = new PopupMenu(getBaseContext(), v);
-
-                /** Adding menu items to the popumenu */
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-
-                /** Defining menu item click listener for the popup menu */
-                popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(getBaseContext(), "You selected the action : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
-
-                /** Showing the popup menu */
-                popup.show();
-
+Intent intent=new Intent(getApplicationContext(),Filters.class);
+                startActivity(intent);
             }
         };
 

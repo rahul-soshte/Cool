@@ -8,6 +8,8 @@ public class PlacesOne {
      String name;
      double longitude;
      double latitude;
+
+
 public PlacesOne(String name, double latitude, double longitude)
 {
     this.name=name;
@@ -17,7 +19,6 @@ public PlacesOne(String name, double latitude, double longitude)
 }
 public String getPlaceName() {
     return name;
-
 }
 public void setLongitude(double longitude)
 {this.longitude=longitude;
@@ -35,4 +36,6 @@ public double getLatitude()
         return longitude;
 
     }
+
+
 }

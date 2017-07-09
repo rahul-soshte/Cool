@@ -108,6 +108,7 @@ private static final String TAG=HttpHandler.class.getSimpleName();
 
 
     }
+
     public void WritetoOutputStream(OutputStream outputStream,String post_data)
     {
         try {
@@ -121,6 +122,15 @@ private static final String TAG=HttpHandler.class.getSimpleName();
         }
 
     }
+
+    /**
+     * This method converts an ArrayList of UserOne,its attribute user_id into JSON format
+     * i.e it creates a JSONArray of user_id from the ArrayList of UserOne class datatype
+     * @param users
+     * users is an ArrayList which is passed which contains Objects of type UserOne
+     * @return
+     * it return String of JSONArray of user_id
+     */
 
     public String convertarraylisttojson(ArrayList<UserOne> users)
     {

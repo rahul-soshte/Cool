@@ -86,5 +86,6 @@
     <string name="action1">Action1</string>
     <string name="action2">Action2</string>
     <string name="action3">Action3</string>
+    <string name="place_filter">Place Filter</string>
 
 </resources>

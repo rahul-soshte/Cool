@@ -97,14 +97,11 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
         @Override
         protected String doInBackground(String... strings)
         {
-
             try {
                 if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
-
                 }
-
                 HttpHandler sh = new HttpHandler();
                 URL url = new URL(listpeopleinevent_url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
