@@ -91,10 +91,11 @@ private ArrayList<PlaceType> place_choosen_type_list=new ArrayList<>();
                         PlaceType placeType=(PlaceType)cb.getTag();
                         //UserOne userOne=(UserOne)cb.getTag();
                         //Country country = (Country) cb.getTag();
-                        Toast.makeText(getApplicationContext(),
+                        /*Toast.makeText(getApplicationContext(),
                                 "Clicked on Checkbox: " + cb.getText() +
                                         " is " + cb.isChecked(),
                                 Toast.LENGTH_LONG).show();
+                                */
                         placeType.setCheck_filter(cb.isChecked());
                     }
                 });
@@ -111,33 +112,6 @@ private ArrayList<PlaceType> place_choosen_type_list=new ArrayList<>();
             return convertView;
 
         }
-    /*
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        ViewHolder holder = null;
-
-        View v=convertView;
-
-        if(v==null)
-        {
-            LayoutInflater inflater=(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v=inflater.inflate(R.layout.place_type,null);
-        }
-        String i=array[position];
-        if(i!=null)
-        {
-            TextView tn=(TextView)v.findViewById(R.id.PlaceTypeName);
-
-            if(tn!=null)
-            {
-                tn.setText(i);
-
-            }
-
-        }
-        return v;
-    }
-    */
 
     }
     private void checkButtonClick() {
