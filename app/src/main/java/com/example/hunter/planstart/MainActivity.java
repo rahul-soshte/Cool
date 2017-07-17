@@ -29,10 +29,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Session class instance
         session = new SessionManager(getApplicationContext());
-
         /**
          * Call this function whenever you want to check user login
          * This will redirect user to LoginActivity is he is not
@@ -40,15 +38,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
          * */
         session.checkLogin();
         HashMap<String, String> user = session.getUserDetails();
-
         // name
         String name = user.get(SessionManager.KEY_NAME);
-
         // email
         String email = user.get(SessionManager.KEY_EMAIL);
-
        //Toast.makeText(this,email,Toast.LENGTH_LONG).show();
-
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

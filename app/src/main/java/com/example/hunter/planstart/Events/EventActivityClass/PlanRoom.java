@@ -20,7 +20,7 @@ import com.example.hunter.planstart.R;
 
 public class PlanRoom extends Fragment {
     ListView PlanTools;
-    String[] Tools = {"GetCenter Tool", "Suggestion Tool", "Merge Similiar Events","Schedule","Carpool"};
+    String[] Tools = {"Dont Have Something?Click Here To Borrow It."};
 EventsOne event;
 static interface PlanToolListListener{
     void itemClicked(int id);

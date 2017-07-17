@@ -166,7 +166,6 @@ String Error="error";
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream=httpURLConnection.getOutputStream();
-
                 String post_data= URLEncoder.encode("eventname","UTF-8")+"="+URLEncoder.encode(eventname,"UTF-8")+"&"
                         +URLEncoder.encode("user_email","UTF-8")+"="+URLEncoder.encode(user_email,"UTF-8");
                 sh.WritetoOutputStream(outputStream,post_data);

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.hunter.planstart.CoreFunctionality.GetCenter;
+import com.example.hunter.planstart.CoreFunctionality.Renting;
 import com.example.hunter.planstart.Events.EventParticipantDetails;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.MainActivity;
@@ -84,7 +85,7 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
     {
         if(id==0)
         {
-            Intent myIntent = new Intent(getApplicationContext(),GetCenter.class);
+            Intent myIntent = new Intent(getApplicationContext(),Renting.class);
              myIntent.putExtra("EventObject",event);
                 startActivity(myIntent);
         }
