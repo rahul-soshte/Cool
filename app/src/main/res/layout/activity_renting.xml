@@ -4,27 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+      <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:layout_below="@+id/textinputlayout"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textinputlayout"
-        android:layout_width="match_parent"
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
-    </android.support.design.widget.TextInputLayout>
+        android:text=""
+        android:layout_below="@+id/button3"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:id="@+id/borrowList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="11dp"
         android:layout_below="@+id/textView4"
         android:layout_alignParentStart="true" />
 
@@ -33,17 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@color/black"
         android:text="Borrow List"
-        android:layout_below="@+id/editText"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/autoCompleteTextView2"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Type the thing you want to borrow"
-        android:layout_below="@+id/button3"
-        android:layout_alignParentStart="true" />
-
 
 </RelativeLayout>

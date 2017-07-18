@@ -10,10 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
-import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
+import com.example.hunter.planstart.Things;
 import com.example.hunter.planstart.User.UserOne;
 
 import org.json.JSONArray;
@@ -28,33 +28,32 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
- * Created by hunter on 24/6/17.
+ * Created by hunter on 18/7/17.
  */
 
-public class UserAdapter extends ArrayAdapter {
-    private ArrayList<UserOne> users;
-    EventsOne event;
+public class ThingsAdapter extends ArrayAdapter{
+    private ArrayList<Things> things;
 
-    public UserAdapter(Context context, int resource,EventsOne event) {
-        super(context, resource);
-        users = new ArrayList<>();
-        this.event=event;
-    }
+    public ThingsAdapter(Context context, int resource)
+{
+    super(context,resource);
 
-    public UserAdapter(Context context, int textViewResourceId, ArrayList<UserOne> users)
-    {
-        super(context,textViewResourceId,users);
-        this.users=users;
-    }
+}
 
+public ThingsAdapter(Context context,int textViewResourceId,ArrayList<Things> things)
+{
+    super(context,textViewResourceId);
+this.things=things;
+
+}
     @Override
     public int getCount() {
-        return users.size();
+        return things.size();
     }
 
     @Override
-    public UserOne getItem(int position) {
-        return users.get(position);
+    public Things getItem(int position) {
+        return things.get(position);
     }
 
     @Override
@@ -67,12 +66,12 @@ public class UserAdapter extends ArrayAdapter {
                     try {
                         //get data from the web
                         String term = constraint.toString();
-                        users = new SearchPeep().execute(term).get();
+                        things = new SearchThings().execute(term).get();
                     } catch (Exception e) {
                         Log.d("HUS", "EXCEPTION " + e);
                     }
-                    filterResults.values = users;
-                    filterResults.count = users.size();
+                    filterResults.values = things;
+                    filterResults.count = things.size();
                 }
                 return filterResults;
             }
@@ -90,12 +89,12 @@ public class UserAdapter extends ArrayAdapter {
         return myFilter;
     }
 
-    private class SearchPeep extends AsyncTask<String,Void,ArrayList>
+    private class SearchThings extends AsyncTask<String,Void,ArrayList>
     {
         String JSON_STRING;
-        ArrayList<UserOne> value_array=new ArrayList<UserOne>();
+        ArrayList<Things> value_array=new ArrayList<Things>();
 
-        String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
+        String findthings_url="http://192.168.42.151/Planmap/find_things.php";
         HttpHandler sh=new HttpHandler();
 
         @Override
@@ -113,13 +112,12 @@ public class UserAdapter extends ArrayAdapter {
                 if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
                     return value_array;
                 }
-                URL url = new URL(addpeep_url);
+                URL url = new URL(findthings_url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 OutputStream outputStream = conn.getOutputStream();
-                String post_data = URLEncoder.encode("argument", "UTF-8") + "=" + URLEncoder.encode(argument, "UTF-8")
-                        +"&"+URLEncoder.encode("event_id", "UTF-8") + "=" + URLEncoder.encode(Integer.toString(event.getEvent_id()), "UTF-8");
+                String post_data = URLEncoder.encode("argument", "UTF-8") + "=" + URLEncoder.encode(argument, "UTF-8");
                 sh.WritetoOutputStream(outputStream, post_data);
                 outputStream.close();
                 InputStream inputStream = conn.getInputStream();
@@ -137,15 +135,9 @@ public class UserAdapter extends ArrayAdapter {
                     for (int i = 0; i < results.length(); i++) {
 
                         JSONObject c = results.getJSONObject(i);
-
-                        int user_id = c.getInt("user_id");
-                        String firstname = c.getString("fname");
-                        String lastname = c.getString("lname");
-                        String username = c.getString("username");
-                        String email_id = c.getString("email_id");
-                        String password = c.getString("password");
-                        UserOne user = new UserOne(user_id, firstname, lastname, email_id, username, password);
-                        value_array.add(user);
+                        String thing_name=c.getString("thing_name");
+                        Things thing=new Things(thing_name);
+                        value_array.add(thing);
                     }
 
                 } catch (Exception e) {
@@ -157,17 +149,6 @@ public class UserAdapter extends ArrayAdapter {
             return value_array;
         }
     }
-/*
-    public boolean isOnline() {
-
-        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
-    }
-*/
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View v=convertView;
@@ -175,32 +156,16 @@ public class UserAdapter extends ArrayAdapter {
         if(v==null)
         {
             LayoutInflater inflater=(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v=inflater.inflate(R.layout.user_add_peep,null);
+            v=inflater.inflate(R.layout.things,null);
         }
 
-        UserOne i=users.get(position);
+        Things i=things.get(position);
         if(i!=null)
         {
-            TextView tfname=(TextView)v.findViewById(R.id.fname);
-            TextView tlname=(TextView)v.findViewById(R.id.lname);
-            TextView tusername=(TextView)v.findViewById(R.id.username);
-
-
-            if(tfname!=null)
+            TextView thingname=(TextView)v.findViewById(R.id.thingname);
+            if(thingname!=null)
             {
-                tfname.setText(" "+i.getFirstName()+" ");
-
-            }
-
-            if(tlname!=null)
-            {
-                tlname.setText(i.getLastName());
-
-            }
-
-            if(tusername!=null)
-            {
-                tusername.setText("("+i.getUsername()+")");
+                thingname.setText(" "+i.getName()+" ");
             }
 
         }

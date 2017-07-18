@@ -26,11 +26,9 @@ public class AddPeopleActivity extends Activity {
     ListView lvFirst;
     //ArrayAdapter<String> adapter1;
     String[] data = {""};
-Button DoneButton;
-
+    Button DoneButton;
 //private UserAdapter m_adapter;
-
-    ArrayList<String> people;
+ArrayList<String> people;
 ArrayList<UserOne> ToBeAdded=new ArrayList<>();
 EventsOne event;
     @Override
@@ -40,7 +38,6 @@ EventsOne event;
 
         Intent intent=getIntent();
         event=(EventsOne)intent.getSerializableExtra("EventObject");
-
 
     DoneButton=(Button)findViewById(R.id.donebutton);
         DoneButton.setOnClickListener(new View.OnClickListener() {
