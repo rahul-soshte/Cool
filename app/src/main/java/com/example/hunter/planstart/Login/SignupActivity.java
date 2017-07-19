@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private static final String LOGIN_URL = "http://192.168.0.8/test/login.php";
+    private static final String LOGIN_URL = "http://192.168.0.3/test/login.php";
     @Bind(R.id.input_firstname)
     EditText _firstnameText;
     @Bind(R.id.input_lastname) EditText _lastnameText;
@@ -123,12 +123,12 @@ HttpHandler sh=new HttpHandler();
         @Override
         protected String doInBackground(String... params) {
 
-            String checkusername_url="http://192.168.42.151/Planmap/checkusername.php";
+            String checkusername_url="http://192.168.0.3/Planmap/checkusername.php";
                 String username=params[0];
 
                 try {
 
-                    if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                    if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                     {
                         return "Not Connected or Server Down or No Signal";
 

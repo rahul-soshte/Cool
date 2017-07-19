@@ -120,9 +120,9 @@ SessionManager session;
         @Override
         protected String doInBackground(String... strings)
         {
-            String listevents_url="http://192.168.42.151/Planmap/events_json.php";
+            String listevents_url="http://192.168.0.3/Planmap/events_json.php";
 try {
-    if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+    if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
     {
         return "Not Connected or Server Down or No Signal";
 

@@ -255,9 +255,9 @@ http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
         String result="";
 HttpHandler sh=new HttpHandler();
 
-      String coordinates_url="http://192.168.42.151/Planmap/getcoordinates.php";
+      String coordinates_url="http://192.168.0.3/Planmap/getcoordinates.php";
 String suggestion_url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
-        String changelocation="http://192.168.42.151/Planmap/changecoordinates.php";
+        String changelocation="http://192.168.0.3/Planmap/changecoordinates.php";
         String event_id=Integer.toString(event.getEvent_id());
 
         @Override
@@ -265,7 +265,7 @@ String suggestion_url="https://maps.googleapis.com/maps/api/place/nearbysearch/j
             String type=params[0];
 
 if(type.equals("Plotting")) {
-    if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
+    if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
         return "Not Connected or Server Down or No Signal";
     }
 
@@ -383,7 +383,7 @@ if(type.equals("ChangeLocation"))
     String latitude=params[1];
     String longitude=params[2];
 
-    if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
+    if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
         return "Not Connected or Server Down or No Signal";
     }
     try {

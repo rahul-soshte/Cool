@@ -95,7 +95,7 @@ public class UserAdapter extends ArrayAdapter {
         String JSON_STRING;
         ArrayList<UserOne> value_array=new ArrayList<UserOne>();
 
-        String addpeep_url="http://192.168.42.151/Planmap/add_peep.php";
+        String addpeep_url="http://192.168.0.3/Planmap/add_peep.php";
         HttpHandler sh=new HttpHandler();
 
         @Override
@@ -110,7 +110,7 @@ public class UserAdapter extends ArrayAdapter {
 
             try {
 
-                if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
+                if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
                     return value_array;
                 }
                 URL url = new URL(addpeep_url);

@@ -94,7 +94,7 @@ this.things=things;
         String JSON_STRING;
         ArrayList<Things> value_array=new ArrayList<Things>();
 
-        String findthings_url="http://192.168.42.151/Planmap/find_things.php";
+        String findthings_url="http://192.168.0.3/Planmap/find_things.php";
         HttpHandler sh=new HttpHandler();
 
         @Override
@@ -109,7 +109,7 @@ this.things=things;
 
             try {
 
-                if (!(LoginActivity.isReachable("192.168.42.151", 80, 500))) {
+                if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
                     return value_array;
                 }
                 URL url = new URL(findthings_url);

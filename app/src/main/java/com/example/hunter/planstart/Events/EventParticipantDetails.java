@@ -87,7 +87,7 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
     {
 
         int event_id=event.getEvent_id();
-        String listpeopleinevent_url="http://192.168.42.151/Planmap/listpeep.php";
+        String listpeopleinevent_url="http://192.168.0.3/Planmap/listpeep.php";
         String JSON_STRING;
 
         private UserAdapter adapter;
@@ -98,7 +98,7 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
         protected String doInBackground(String... strings)
         {
             try {
-                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
                 }

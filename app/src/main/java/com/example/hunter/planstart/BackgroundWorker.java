@@ -53,19 +53,19 @@ String Error="error";
     @Override
     protected String doInBackground(String... params) {
         String type=params[0];
-        String login_url="http://192.168.42.151/Planmap/login.php";
-        String signup_url="http://192.168.42.151/Planmap/signup.php";
-        String createevent_url="http://192.168.42.151/Planmap/createevent.php";
-        String listevents_url="http://192.168.42.151/Planmap/events_json.php";
-        String checkusername_url="http://192.168.42.151/Planmap/checkusername.php";
-        String addpeepurl="http://192.168.42.151/Planmap/addtheselectedpeep.php";
+        String login_url="http://192.168.0.3/Planmap/login.php";
+        String signup_url="http://192.168.0.3/Planmap/signup.php";
+        String createevent_url="http://192.168.0.3/Planmap/createevent.php";
+        String listevents_url="http://192.168.0.3/Planmap/events_json.php";
+        String checkusername_url="http://192.168.0.3/Planmap/checkusername.php";
+        String addpeepurl="http://192.168.0.3/Planmap/addtheselectedpeep.php";
 
         if(type.equals("login"))
         {
             try {
                 user_email=params[1];
                 String pass_word=params[2];
-                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
                 }
@@ -115,7 +115,7 @@ String Error="error";
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
 
-                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
                 }
@@ -155,7 +155,7 @@ String Error="error";
                 user_email=params[2];
 
 
-                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
 
@@ -194,14 +194,14 @@ String Error="error";
             eventname=params[2];
 
 
-            if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+            if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
             {
                 return "Not Connected or Server Down or No Signal";
 
             }
             try {
 
-                if (!(LoginActivity.isReachable("192.168.42.151",80,500)))
+                if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
 
