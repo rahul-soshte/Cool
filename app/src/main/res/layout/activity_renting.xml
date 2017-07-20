@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:layout_alignParentStart="true"
-        />
+          android:layout_alignParentTop="true"
+          android:layout_alignParentEnd="true" />
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView2"
@@ -18,7 +19,8 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_below="@+id/button3"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/button3" />
 
     <ListView
         android:id="@+id/borrowList"
@@ -39,5 +41,16 @@
         android:layout_marginTop="12dp"
         android:layout_below="@+id/autoCompleteTextView2"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/autoCompleteTextView2"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/autoCompleteTextView2"
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/btn_click"
+        android:layout_below="@+id/button3" />
 
 </RelativeLayout>
