@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.TextView;
 
@@ -166,6 +167,12 @@ this.things=things;
             if(thingname!=null)
             {
                 thingname.setText(" "+i.getName()+" ");
+            }
+
+            EditText editText=(EditText)v.findViewById(R.id.editquantity);
+            if(editText!=null)
+            {
+                editText.setText(Integer.toString(i.quantity));
             }
 
         }
