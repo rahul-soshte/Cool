@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.hunter.planstart.CustomAdapter.ThingsAdapter;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class Renting extends AppCompatActivity {
 ListView lvborrow;
-
+ImageButton pushDownButton;
     Button DoneButton;
     ArrayList<Things> ToBeBorrowed=new ArrayList<>();
 
@@ -29,6 +30,7 @@ ListView lvborrow;
         setContentView(R.layout.activity_renting);
         final ThingsAdapter adapter = new ThingsAdapter(this,android.R.layout.simple_dropdown_item_1line);
         lvborrow=(ListView)findViewById(R.id.borrowList);
+        pushDownButton=(ImageButton)findViewById(R.id.pushdownbutton);
         final AutoCompleteTextView actv;
         //final SearchPeep searchPeep = new SearchPeep();
         actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView2);
@@ -43,6 +45,18 @@ ListView lvborrow;
                 ThingsAdapter adapter2=new ThingsAdapter(getApplicationContext(),R.layout.things,ToBeBorrowed);
                 lvborrow.setAdapter(adapter2);
                 actv.setText("");
+            }
+        });
+        pushDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!actv.getText().toString().equals("")) {
+                    Things things = new Things(actv.getText().toString());
+                    ToBeBorrowed.add(things);
+                    ThingsAdapter adapter3 = new ThingsAdapter(getApplicationContext(), R.layout.things, ToBeBorrowed);
+                    lvborrow.setAdapter(adapter3);
+                    actv.setText("");
+                }
             }
         });
     }
