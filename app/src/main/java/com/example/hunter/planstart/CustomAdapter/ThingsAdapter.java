@@ -34,6 +34,8 @@ import java.util.ArrayList;
 
 public class ThingsAdapter extends ArrayAdapter{
     private ArrayList<Things> things;
+    public static final int AUTOCOMPLETE_LIST=0;
+    public static final int BORROW_LIST=1;
 
     public ThingsAdapter(Context context, int resource)
 {
@@ -47,6 +49,7 @@ public ThingsAdapter(Context context,int textViewResourceId,ArrayList<Things> th
 this.things=things;
 
 }
+
     @Override
     public int getCount() {
         return things.size();
@@ -89,6 +92,8 @@ this.things=things;
         };
         return myFilter;
     }
+
+
 
     private class SearchThings extends AsyncTask<String,Void,ArrayList>
     {
@@ -137,30 +142,60 @@ this.things=things;
 
                         JSONObject c = results.getJSONObject(i);
                         String thing_name=c.getString("thing_name");
-                        Things thing=new Things(thing_name);
+                        Things thing=new Things(thing_name,true);
                         value_array.add(thing);
                     }
 
                 } catch (Exception e) {
                     return value_array;
-
                 }
 
             }
             return value_array;
         }
     }
+
+
+    @Override
+    public int getViewTypeCount(){
+
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position){
+//return super.getItemViewType(position);
+Things thing=things.get(position);
+        if(thing.isAutoComplete)
+        {
+            return AUTOCOMPLETE_LIST;
+        }
+        else
+        {
+            return BORROW_LIST;
+        }
+    }
+
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View v=convertView;
-
-        if(v==null)
-        {
-            LayoutInflater inflater=(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v=inflater.inflate(R.layout.things,null);
-        }
 
         Things i=things.get(position);
+        View v=convertView;
+        if(v==null)
+        {
+            if(getItemViewType(position)==BORROW_LIST) {
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = inflater.inflate(R.layout.things, null);
+            }
+            if(getItemViewType(position)==AUTOCOMPLETE_LIST)
+            {
+                LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = inflater.inflate(R.layout.things_autocomplete, null);
+            }
+        }
+
+if(getItemViewType(position)==BORROW_LIST){
+
         if(i!=null)
         {
             TextView thingname=(TextView)v.findViewById(R.id.thingname);
@@ -176,7 +211,23 @@ this.things=things;
             }
 
         }
+    }
+
+    if(getItemViewType(position)==AUTOCOMPLETE_LIST)
+    {
+        if(i!=null)
+        {
+            TextView thingname=(TextView)v.findViewById(R.id.thingname);
+            if(thingname!=null)
+            {
+                thingname.setText(" "+i.getName()+" ");
+            }
+
+        }
+    }
+
         return v;
     }
+
 
 }
