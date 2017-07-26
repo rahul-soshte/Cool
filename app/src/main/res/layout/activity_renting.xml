@@ -6,10 +6,10 @@
     android:layout_height="match_parent">
 
       <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done"
+          android:id="@+id/button3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Save"
           android:layout_alignParentTop="true"
           android:layout_alignParentEnd="true" />
 
@@ -29,7 +29,7 @@
         android:layout_marginTop="11dp"
         android:layout_below="@+id/textView4"
         android:layout_alignParentStart="true" />
-
+    
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -53,5 +53,16 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/btn_click"
         android:layout_below="@+id/button3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/borrowList"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@+id/autoCompleteTextView2"
+        android:textStyle="bold"
+        android:text="Quantity" />
 
 </RelativeLayout>

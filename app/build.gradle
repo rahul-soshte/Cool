@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+    //    useLibrary 'org.apache.http.legacy'
     }
     buildTypes {
         release {
@@ -30,12 +31,16 @@ dependencies {
     })
     // Dependency for Google Sign-In
     // Dependencies for the REST API example
-    compile('com.google.apis:google-api-services-drive:v2-rev170-1.20.0') {
-        exclude module: 'httpclient' //by artifact name
-        exclude group: 'org.apache.httpcomponents' //by group
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient' //by both name and group
 
-    }
+    //compile('com.google.apis:google-api-services-drive:v2-rev170-1.20.0') {
+        //exclude module: 'httpclient' //by artifact name
+       // exclude group: 'org.apache.httpcomponents' //by group
+     //   exclude group: 'org.apache.httpcomponents', module: 'httpclient' //by both name and group
+   //}
+
+    compile 'org.apache.httpcomponents:httpcore:4.4.1'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
@@ -53,4 +58,5 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     androidTestCompile 'com.android.support:support-annotations:25.0.1'
+
 }

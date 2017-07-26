@@ -66,6 +66,7 @@
             android:name=".CoreFunctionality.GetCenter"
             android:label="GetCenter Tool"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".CoreFunctionality.Filters"
             android:theme="@style/AppTheme" />
@@ -73,6 +74,11 @@
             android:name=".CoreFunctionality.Renting"
             android:label="Borrow"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".CoreFunctionality.Renters.ListRenters"
+            android:theme="@style/AppTheme"
+            android:label="Buy/Rent" />
+
     </application>
 
 </manifest>

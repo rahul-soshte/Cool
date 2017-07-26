@@ -84,7 +84,8 @@ this.things=things;
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results != null && results.count > 0) {
                     notifyDataSetChanged();
-                } else {
+                }
+                else {
                     notifyDataSetInvalidated();
                 }
             }
@@ -203,12 +204,13 @@ if(getItemViewType(position)==BORROW_LIST){
             {
                 thingname.setText(" "+i.getName()+" ");
             }
-
+/*
             EditText editText=(EditText)v.findViewById(R.id.editquantity);
             if(editText!=null)
             {
                 editText.setText(Integer.toString(i.quantity));
             }
+            */
 
         }
     }

@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-    private static final String LOGIN_URL = "http://192.168.0.3/test/login.php";
+    private static final String LOGIN_URL = "http://192.168.1.4/test/login.php";
     @Bind(R.id.input_firstname)
     EditText _firstnameText;
     @Bind(R.id.input_lastname) EditText _lastnameText;

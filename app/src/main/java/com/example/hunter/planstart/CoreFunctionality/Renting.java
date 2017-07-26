@@ -1,5 +1,6 @@
 package com.example.hunter.planstart.CoreFunctionality;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.example.hunter.planstart.CoreFunctionality.Renters.ListRenters;
 import com.example.hunter.planstart.CustomAdapter.ThingsAdapter;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.Things;
@@ -58,6 +60,14 @@ public class Renting extends AppCompatActivity {
                 }
             }
         });
+
+lvborrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent=new Intent(Renting.this, ListRenters.class);
+        startActivity(intent);
+    }
+});
     }
 
 

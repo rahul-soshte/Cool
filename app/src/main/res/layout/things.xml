@@ -2,7 +2,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="match_parent"
+
+    >
 
 <TextView
     android:id="@+id/thingname"
@@ -13,7 +15,7 @@ android:layout_height="match_parent">
     android:layout_height="wrap_content"
     />
 
-<EditText
+<!--<EditText
     android:id="@+id/editquantity"
     android:layout_alignParentRight="true"
     android:inputType="number"
@@ -21,7 +23,9 @@ android:layout_height="match_parent">
     android:textColor="@color/black"
     android:text=""
     android:layout_height="wrap_content"
-    />
+    android:focusable="true"
+    />-->
+
 </RelativeLayout>
 
 <!--<android.support.v7.widget.CardView
