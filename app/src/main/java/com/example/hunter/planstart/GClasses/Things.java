@@ -1,4 +1,4 @@
-package com.example.hunter.planstart;
+package com.example.hunter.planstart.GClasses;
 
 /**
  * Created by hunter on 17/7/17.
@@ -13,6 +13,10 @@ public class Things {
     public static final int BORLIST_TYPE = 1;
     public boolean isAutoComplete;
 
+    public Things()
+    {
+
+    }
     public Things(String name,boolean isAutoComplete)
     {
         this.name=name;
@@ -35,7 +39,6 @@ public class Things {
     {
         this.isAutoComplete=isAutoComplete;
     }
-
 
     //public int getType() {
       //  return mType;

@@ -16,24 +16,12 @@
           android:layout_alignParentTop="true"
           android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_below="@+id/askyourfriends"
-        android:id="@+id/img"
-        android:layout_width="300px"
-        android:layout_height="300px" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <ListView
         android:id="@+id/listrenters"
-        android:layout_below="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
-
+        android:layout_below="@+id/askyourfriends"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp" />
 
 </RelativeLayout>

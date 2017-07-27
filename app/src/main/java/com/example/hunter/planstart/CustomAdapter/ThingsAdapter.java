@@ -7,15 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.TextView;
 
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.R;
-import com.example.hunter.planstart.Things;
-import com.example.hunter.planstart.User.UserOne;
+import com.example.hunter.planstart.GClasses.Things;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

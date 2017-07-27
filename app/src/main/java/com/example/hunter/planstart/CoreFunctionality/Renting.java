@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.example.hunter.planstart.CoreFunctionality.Renters.ListRenters;
 import com.example.hunter.planstart.CustomAdapter.ThingsAdapter;
 import com.example.hunter.planstart.R;
-import com.example.hunter.planstart.Things;
+import com.example.hunter.planstart.GClasses.Things;
 
 import java.util.ArrayList;
 
