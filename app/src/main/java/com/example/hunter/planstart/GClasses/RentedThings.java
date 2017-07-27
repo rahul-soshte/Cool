@@ -32,9 +32,9 @@ String prodname;
         return rentperday;
     }
 
-    public int getuser()
+    public String getuser()
     {
-        return user_id_who_putup;
+        return Integer.toString(user_id_who_putup);
     }
 
 

@@ -58,23 +58,25 @@ ArrayList<RentedThings> rentedThings;
         if(i!=null)
         {
             ImageView imageView=(ImageView)v.findViewById(R.id.thingdp);
-            //TextView tproductname=(TextView)v.findViewById(R.id.productname);
-           // TextView tproductseller=(TextView)v.findViewById(R.id.sellername);
-           // TextView trateperday=(TextView)v.findViewById(R.id.Rateperday);
-/*
+            TextView tproductname=(TextView)v.findViewById(R.id.productname);
+            TextView tproductseller=(TextView)v.findViewById(R.id.sellername);
+           TextView trateperday=(TextView)v.findViewById(R.id.Rateperday);
+
             if(tproductname!=null)
             {
                 tproductname.setText(i.getProdname());
             }
+
             if(tproductseller!=null)
             {
                 tproductseller.setText(i.getuser());
             }
+
             if(trateperday!=null)
             {
                 trateperday.setText(Double.toString(i.getRentperday()));
             }
-            */
+
             if(imageView!=null)
             {
 

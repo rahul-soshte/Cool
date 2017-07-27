@@ -12,6 +12,7 @@
         android:id="@+id/productname"
         android:layout_toRightOf="@+id/thingdp"
         android:layout_width="wrap_content"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:text="Product Name"
         />
@@ -19,6 +20,7 @@
     <TextView
         android:id="@+id/sellername"
         android:text="Seller Name"
+        android:textColor="@color/black"
         android:layout_below="@+id/productname"
         android:layout_toRightOf="@+id/thingdp"
         android:layout_width="wrap_content"
@@ -28,6 +30,7 @@
    <TextView
       android:id="@+id/Rateperday"
       android:text="RentPerDay"
+       android:textColor="@color/black"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignBottom="@+id/thingdp"

@@ -74,7 +74,6 @@ public class ListRenters extends AppCompatActivity {
                 if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
-
                 }
 
                 HttpHandler sh = new HttpHandler();
@@ -143,7 +142,7 @@ public class ListRenters extends AppCompatActivity {
             {
                 adapter = new ListRentersAdapters(getApplicationContext(),R.layout.listrentersview, value_array);
                 BuyRent.setAdapter(adapter);
-                Toast.makeText(getApplicationContext(),"Cool", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(),"Cool", Toast.LENGTH_LONG).show();
 
 
             }
