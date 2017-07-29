@@ -69,12 +69,12 @@ ArrayList<RentedThings> rentedThings;
 
             if(tproductseller!=null)
             {
-                tproductseller.setText(i.getuser());
+                tproductseller.setText(i.getusername());
             }
 
             if(trateperday!=null)
             {
-                trateperday.setText(Double.toString(i.getRentperday()));
+                trateperday.setText(Double.toString(i.getRentperday())+"/Day");
             }
 
             if(imageView!=null)

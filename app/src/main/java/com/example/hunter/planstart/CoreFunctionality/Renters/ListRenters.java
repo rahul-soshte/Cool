@@ -18,6 +18,7 @@ import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.GClasses.RentedThings;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
+import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.R;
 
 
@@ -32,36 +33,34 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListRenters extends AppCompatActivity {
 
     ListView BuyRent;
     ProgressBar progressBar;
     ImageView img;
+    //SessionManager instance
+    SessionManager session;
 
+    String user_email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_renters);
        BuyRent=(ListView)findViewById(R.id.listrenters);
-
+        session = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String name = user.get(SessionManager.KEY_NAME);
+        // email
+        user_email = user.get(SessionManager.KEY_EMAIL);
         new LOL().execute();
         //img = (ImageView) findViewById(R.id.img);
        // progressBar= (ProgressBar) findViewById(R.id.progressBar);
-
-       //String url="https://192.168.0.3/Planmap/images/unnamed.png";
-        //    String url="http://192.168.0.3/Planmap/images/unnamed.png";
-
-        //String url="http://www.flat-e.com/flate5/wp-content/uploads/cover-960x857.jpg";
-      //  MyTask myTask= new MyTask();
-        //myTask.execute(url);
-
     }
     private class LOL extends AsyncTask<String,Void,String>
     {
-
         String JSON_STRING;
-
         private ListRentersAdapters adapter;
 
         ArrayList<RentedThings> value_array=new ArrayList<RentedThings>();
@@ -82,7 +81,7 @@ public class ListRenters extends AppCompatActivity {
                 conn.setRequestMethod("POST");
                    conn.setDoInput(true);
                 OutputStream outputStream = conn.getOutputStream();
-                 String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode("lol", "UTF-8");
+                 String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode(user_email, "UTF-8");
                  sh.WritetoOutputStream(outputStream,post_data);
                  outputStream.close();
                 InputStream inputStream = conn.getInputStream();
@@ -107,12 +106,10 @@ public class ListRenters extends AppCompatActivity {
                         String prodimageurl=c.getString("prodimageurl");
                         Double rentperday=c.getDouble("rentperday");
                         int user_id=c.getInt("user_id");
-
-                        RentedThings rentedThings=new RentedThings(name,prodimageurl,rentperday,user_id);
+                        String username=c.getString("username");
+                        RentedThings rentedThings=new RentedThings(name,prodimageurl,rentperday,user_id,username);
                         value_array.add(rentedThings);
-
                     }
-
                 }catch(final JSONException e)
                 {
                     //                Log.e(TAG,"Json Parsing error: "+e);
@@ -132,7 +129,6 @@ public class ListRenters extends AppCompatActivity {
                     }
                 });
             }
-
             return "cool";
         }
         @Override
@@ -142,50 +138,11 @@ public class ListRenters extends AppCompatActivity {
             {
                 adapter = new ListRentersAdapters(getApplicationContext(),R.layout.listrentersview, value_array);
                 BuyRent.setAdapter(adapter);
-               // Toast.makeText(getApplicationContext(),"Cool", Toast.LENGTH_LONG).show();
-
-
             }
             if(result.equals("Not Connected or Server Down or No Signal")) {
                 Toast.makeText(getApplicationContext(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
             }
-
         }
     }
-
-
-
-    /*
-    class MyTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... voids) {
-
-            Bitmap bitmap=null;
-
-            try {
-                URL url =new URL(voids[0]);
-                HttpURLConnection connection= (HttpURLConnection) url.openConnection();
-                InputStream inputStream = connection.getInputStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            progressBar.setVisibility(View.GONE);
-            img.setImageBitmap(bitmap);
-
-        }
-    }
-*/
 
 }

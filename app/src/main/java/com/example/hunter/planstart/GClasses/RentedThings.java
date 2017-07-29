@@ -5,18 +5,18 @@ package com.example.hunter.planstart.GClasses;
  */
 
 public class RentedThings{
-
-
      int user_id_who_putup;
      String productimageurl;
-    Double rentperday;
-String prodname;
+     Double rentperday;
+     String prodname;
+     String username;
 
-    public RentedThings(String prodname, String productimageurl, Double rentperday, int user_id_who_putup) {
+    public RentedThings(String prodname, String productimageurl, Double rentperday, int user_id_who_putup,String username) {
         this.prodname=prodname;
         this.productimageurl = productimageurl;
         this.rentperday = rentperday;
         this.user_id_who_putup = user_id_who_putup;
+        this.username=username;
     }
 
     public String getProdname()
@@ -35,6 +35,10 @@ String prodname;
     public String getuser()
     {
         return Integer.toString(user_id_who_putup);
+    }
+    public String getusername()
+    {
+        return username;
     }
 
 
