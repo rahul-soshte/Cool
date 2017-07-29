@@ -85,10 +85,8 @@ SessionManager session;
                 EventsOne event=(EventsOne)parent.getItemAtPosition(position);
                // String eventname=event.getEvent_name();
                 //int event_id=event.getEvent_id();
-
                 Intent myIntent = new Intent(getActivity().getApplicationContext(),EventActivity.class);
                 myIntent.putExtra("EventObject",event);
-
                // myIntent.putExtra("title",eventname);
                 startActivity(myIntent);
             }

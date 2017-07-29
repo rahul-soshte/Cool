@@ -36,9 +36,6 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         event=(EventsOne)intent.getSerializableExtra("EventObject");
         setTitle(event.getEvent_name());
         //    int event_id=intent.getIntExtra("event_id",);
-
-
-
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

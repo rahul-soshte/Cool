@@ -13,10 +13,13 @@ import android.widget.ListView;
 
 import com.example.hunter.planstart.CoreFunctionality.Renters.ListRenters;
 import com.example.hunter.planstart.CustomAdapter.ThingsAdapter;
+import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.GClasses.Things;
 
 import java.util.ArrayList;
+
+import static android.support.constraint.R.id.parent;
 
 public class Renting extends AppCompatActivity {
     ListView lvborrow;
@@ -63,8 +66,11 @@ public class Renting extends AppCompatActivity {
 
 lvborrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+       // EventsOne event=(EventsOne)parent.getItemAtPosition(position);
+        Things things=(Things) adapterView.getItemAtPosition(position);
         Intent intent=new Intent(Renting.this, ListRenters.class);
+        intent.putExtra("ThingObject",things);
         startActivity(intent);
     }
 });

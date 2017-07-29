@@ -1,5 +1,6 @@
 package com.example.hunter.planstart.CoreFunctionality.Renters;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -16,6 +17,7 @@ import com.example.hunter.planstart.CustomAdapter.EventAdapter;
 import com.example.hunter.planstart.CustomAdapter.ListRentersAdapters;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.GClasses.RentedThings;
+import com.example.hunter.planstart.GClasses.Things;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
@@ -42,18 +44,27 @@ public class ListRenters extends AppCompatActivity {
     ImageView img;
     //SessionManager instance
     SessionManager session;
+    Things things;
 
     String user_email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_renters);
-       BuyRent=(ListView)findViewById(R.id.listrenters);
+        Intent intent=getIntent();
+
+        things=(Things)intent.getSerializableExtra("ThingObject");
+        Toast.makeText(getApplicationContext(),things.getName(),Toast.LENGTH_LONG).show();
+
+        BuyRent=(ListView)findViewById(R.id.listrenters);
         session = new SessionManager(getApplicationContext());
+
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(SessionManager.KEY_NAME);
+
         // email
         user_email = user.get(SessionManager.KEY_EMAIL);
+
         new LOL().execute();
         //img = (ImageView) findViewById(R.id.img);
        // progressBar= (ProgressBar) findViewById(R.id.progressBar);
@@ -102,11 +113,13 @@ public class ListRenters extends AppCompatActivity {
                     for(int i=0;i<results.length();i++)
                     {
                         JSONObject c=results.getJSONObject(i);
+
                         String name=c.getString("prodname");
                         String prodimageurl=c.getString("prodimageurl");
                         Double rentperday=c.getDouble("rentperday");
                         int user_id=c.getInt("user_id");
                         String username=c.getString("username");
+
                         RentedThings rentedThings=new RentedThings(name,prodimageurl,rentperday,user_id,username);
                         value_array.add(rentedThings);
                     }

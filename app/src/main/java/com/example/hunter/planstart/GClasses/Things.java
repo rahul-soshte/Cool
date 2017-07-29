@@ -1,10 +1,12 @@
 package com.example.hunter.planstart.GClasses;
 
+import java.io.Serializable;
+
 /**
  * Created by hunter on 17/7/17.
  */
 
-public class Things {
+public class Things implements Serializable{
 
     public String name;
     public int quantity;
