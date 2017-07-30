@@ -54,7 +54,7 @@ public class ListRenters extends AppCompatActivity {
         Intent intent=getIntent();
 
         things=(Things)intent.getSerializableExtra("ThingObject");
-        Toast.makeText(getApplicationContext(),things.getName(),Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(),things.getName(),Toast.LENGTH_LONG).show();
 
         BuyRent=(ListView)findViewById(R.id.listrenters);
         session = new SessionManager(getApplicationContext());
@@ -92,7 +92,8 @@ public class ListRenters extends AppCompatActivity {
                 conn.setRequestMethod("POST");
                    conn.setDoInput(true);
                 OutputStream outputStream = conn.getOutputStream();
-                 String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode(user_email, "UTF-8");
+                 String post_data = URLEncoder.encode("user_email", "UTF-8") + "=" + URLEncoder.encode(user_email, "UTF-8")
+                         +"&"+URLEncoder.encode("argument","UTF-8")+"="+URLEncoder.encode(things.getName(),"UTF-8");
                  sh.WritetoOutputStream(outputStream,post_data);
                  outputStream.close();
                 InputStream inputStream = conn.getInputStream();
