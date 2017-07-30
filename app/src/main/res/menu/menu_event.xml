@@ -11,12 +11,11 @@
         android:orderInCategory="100"
         app:showAsAction="never" />-->
 
-    <item android:id="@+id/addpeep"
+<!--<item android:id="@+id/addpeep"
         android:title="Add People"
         android:icon="@drawable/ic_add_black_24dp"
         android:orderInCategory="1"
         app:showAsAction="always"
-
-        />
+        />-->
 
 </menu>
