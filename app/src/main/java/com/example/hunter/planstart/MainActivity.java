@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.hunter.planstart.CoreFunctionality.Renters.LendActivity;
 import com.example.hunter.planstart.Events.CreateEventActivity;
 import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.TabLayout.Pager;
@@ -103,6 +104,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         if(id==R.id.action_log_out)
         {
             session.logoutUser();
+        }
+        if(id==R.id.action_lend)
+        {
+            Intent intent=new Intent(MainActivity.this, LendActivity.class);
+            startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);

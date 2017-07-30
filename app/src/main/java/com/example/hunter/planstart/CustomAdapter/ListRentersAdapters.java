@@ -79,7 +79,6 @@ ArrayList<RentedThings> rentedThings;
 
             if(imageView!=null)
             {
-
                 Bitmap bitmap= null;
                 try {
                     bitmap = new MyTask().execute(i.getProductimageurl()).get();
@@ -95,12 +94,10 @@ ArrayList<RentedThings> rentedThings;
     }
 
     class MyTask extends AsyncTask<String, Void, Bitmap> {
-
       //  @Override
     //    protected void onPreExecute() {
         //    progressBar.setVisibility(View.VISIBLE);
        // }
-
         @Override
         protected Bitmap doInBackground(String... voids) {
 

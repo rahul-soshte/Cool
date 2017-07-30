@@ -10,8 +10,15 @@
         android:orderInCategory="1"
         app:showAsAction="always" />
 
+    <item android:id="@+id/action_lend"
+        android:title="Lend And Earn"
+       android:orderInCategory="3"
+        app:showAsAction="never"
+        />
+
     <item android:id="@+id/action_log_out"
         android:title="Log Out"
         android:orderInCategory="3"
         app:showAsAction="never" />
+
 </menu>

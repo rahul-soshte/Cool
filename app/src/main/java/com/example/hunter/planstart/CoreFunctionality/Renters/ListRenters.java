@@ -51,8 +51,10 @@ public class ListRenters extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_renters);
-        Intent intent=getIntent();
 
+        progressBar= (ProgressBar) findViewById(R.id.progressBar);
+
+        Intent intent=getIntent();
         things=(Things)intent.getSerializableExtra("ThingObject");
        // Toast.makeText(getApplicationContext(),things.getName(),Toast.LENGTH_LONG).show();
 
@@ -67,7 +69,7 @@ public class ListRenters extends AppCompatActivity {
 
         new LOL().execute();
         //img = (ImageView) findViewById(R.id.img);
-       // progressBar= (ProgressBar) findViewById(R.id.progressBar);
+
     }
     private class LOL extends AsyncTask<String,Void,String>
     {
@@ -76,6 +78,10 @@ public class ListRenters extends AppCompatActivity {
 
         ArrayList<RentedThings> value_array=new ArrayList<RentedThings>();
 
+        @Override
+            protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+         }
         @Override
         protected String doInBackground(String... strings)
         {
@@ -145,9 +151,11 @@ public class ListRenters extends AppCompatActivity {
             }
             return "cool";
         }
+
         @Override
         protected void onPostExecute(String result)
         {
+            progressBar.setVisibility(View.GONE);
             if(result.equals("cool"))
             {
                 adapter = new ListRentersAdapters(getApplicationContext(),R.layout.listrentersview, value_array);
@@ -158,5 +166,4 @@ public class ListRenters extends AppCompatActivity {
             }
         }
     }
-
 }
