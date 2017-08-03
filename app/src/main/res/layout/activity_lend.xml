@@ -16,7 +16,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/selectbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
@@ -25,25 +25,21 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/donebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignParentEnd="true" />
-    <EditText
-        android:id="@+id/editText"
-        android:hint="Name for image"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:text="DONE" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/button2" />
+        android:layout_below="@+id/prodname"
+        android:layout_toEndOf="@+id/selectbutton"
+        android:layout_marginTop="26dp" />
 
 
 </RelativeLayout>
