@@ -78,10 +78,10 @@ public class ListRenters extends AppCompatActivity {
 
         ArrayList<RentedThings> value_array=new ArrayList<RentedThings>();
 
-        @Override
-            protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
-         }
+        //@Override
+           // protected void onPreExecute() {
+         //   progressBar.setVisibility(View.VISIBLE);
+         //}
         @Override
         protected String doInBackground(String... strings)
         {
@@ -155,7 +155,7 @@ public class ListRenters extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result)
         {
-            progressBar.setVisibility(View.GONE);
+           // progressBar.setVisibility(View.GONE);
             if(result.equals("cool"))
             {
                 adapter = new ListRentersAdapters(getApplicationContext(),R.layout.listrentersview, value_array);
