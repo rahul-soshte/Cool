@@ -19,27 +19,55 @@
         android:id="@+id/selectbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
         android:text="Select"
-        android:layout_below="@+id/prodname"
+        android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/donebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        android:text="DONE" />
+        android:text="DONE"
+        android:layout_marginTop="83dp"
+        android:layout_below="@+id/rentPerDay"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_marginStart="31dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_below="@+id/textView5"
+        android:layout_toEndOf="@+id/selectbutton" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Upload Image:"
+        android:textSize="20dp"
         android:layout_below="@+id/prodname"
-        android:layout_toEndOf="@+id/selectbutton"
-        android:layout_marginTop="26dp" />
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/rentPerDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/imageView"
+        android:layout_toEndOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="Rent/Day"
+        android:layout_alignBottom="@+id/rentPerDay"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

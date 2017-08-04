@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         String name = user.get(SessionManager.KEY_NAME);
         // email
         String email = user.get(SessionManager.KEY_EMAIL);
-       //Toast.makeText(this,email,Toast.LENGTH_LONG).show();
+
         //Adding toolbar to the activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

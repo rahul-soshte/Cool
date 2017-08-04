@@ -18,12 +18,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.hunter.planstart.Constants;
+import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.R;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 
@@ -32,13 +34,17 @@ import java.util.UUID;
 //https://www.simplifiedcoding.net/android-upload-image-to-server/#comment-12074
 public class LendActivity extends AppCompatActivity implements View.OnClickListener{
 
+    //SessionManager instance
+    SessionManager session;
 
+
+    String email;
     //Declaring Views
     private EditText ProductName;
     private Button DoneButton;
     private ImageView imageView;
     private Button selectButton;
-
+    private EditText rentPerDay;
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -58,12 +64,19 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
         //Requesting storage permission
         requestStoragePermission();
 
+        session = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+        // email
+         email = user.get(SessionManager.KEY_EMAIL);
+
         //Initializing views
         ProductName=(EditText)findViewById(R.id.prodname);
         DoneButton=(Button)findViewById(R.id.donebutton);
         imageView=(ImageView)findViewById(R.id.imageView);
         selectButton=(Button)findViewById(R.id.selectbutton);
-
+        rentPerDay=(EditText)findViewById(R.id.rentPerDay);
         //Setting OnClickListener
         DoneButton.setOnClickListener(this);
         selectButton.setOnClickListener(this);
@@ -86,6 +99,8 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
     public void uploadMultipart() {
         //getting name for the image
         String name = ProductName.getText().toString().trim();
+        //Getting Rent Value
+        double rentperday=Double.parseDouble(rentPerDay.getText().toString().trim());
 
         //getting the actual path of the image
         String path = getPath(filePath);
@@ -98,6 +113,8 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
             new MultipartUploadRequest(this, uploadId, Constants.UPLOAD_URL)
                     .addFileToUpload(path, "image") //Adding file
                     .addParameter("name", name) //Adding text parameter to the request
+                    .addParameter("rentperday",Double.toString(rentperday))//Adding rentperday parameter
+                    .addParameter("user_email",email)
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
