@@ -28,10 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DONE"
-        android:layout_marginTop="83dp"
-        android:layout_below="@+id/rentPerDay"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_marginStart="31dp" />
+        android:layout_marginStart="31dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView5" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -68,6 +67,47 @@
         android:text="Rent/Day"
         android:layout_alignBottom="@+id/rentPerDay"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="26dp"
+        android:text="Contact No" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Description:"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:layout_alignBaseline="@+id/textView7"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignEnd="@+id/rentPerDay"
+        android:layout_toEndOf="@+id/textView6" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView10"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Ad Details" />
 
 
 </RelativeLayout>

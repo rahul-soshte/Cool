@@ -45,6 +45,7 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView imageView;
     private Button selectButton;
     private EditText rentPerDay;
+
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -92,6 +93,7 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
             //Here you can explain why you need this permission
             //Explain here why you need this permission
         }
+
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
@@ -101,7 +103,6 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
         String name = ProductName.getText().toString().trim();
         //Getting Rent Value
         double rentperday=Double.parseDouble(rentPerDay.getText().toString().trim());
-
         //getting the actual path of the image
         String path = getPath(filePath);
 
