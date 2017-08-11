@@ -17,6 +17,7 @@ import com.example.hunter.planstart.CustomAdapter.UserAdapter;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.User.AddPeopleActivity;
 import com.example.hunter.planstart.User.UserOne;
@@ -87,7 +88,7 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
     {
 
         int event_id=event.getEvent_id();
-        String listpeopleinevent_url="http://192.168.0.3/Planmap/listpeep.php";
+        String listpeopleinevent_url="http://"+ MainActivity.server_ip+"/Planmap/listpeep.php";
         String JSON_STRING;
 
         private UserAdapter adapter;
@@ -98,7 +99,7 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
         protected String doInBackground(String... strings)
         {
             try {
-                if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
+                if (!(LoginActivity.isReachable(MainActivity.server_ip,80,500)))
                 {
                     return "Not Connected or Server Down or No Signal";
                 }

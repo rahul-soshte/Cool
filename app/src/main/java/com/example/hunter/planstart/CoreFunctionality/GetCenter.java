@@ -17,6 +17,7 @@ import com.example.hunter.planstart.GPS.GPSTracker;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
 import com.example.hunter.planstart.Login.SessionManager;
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.Places.PlacesOne;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.User.UserOne;
@@ -255,9 +256,9 @@ http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial/
         String result="";
 HttpHandler sh=new HttpHandler();
 
-      String coordinates_url="http://192.168.0.3/Planmap/getcoordinates.php";
+      String coordinates_url="http://"+MainActivity.server_ip+"/Planmap/getcoordinates.php";
 String suggestion_url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
-        String changelocation="http://192.168.0.3/Planmap/changecoordinates.php";
+        String changelocation="http://"+MainActivity.server_ip+"/Planmap/changecoordinates.php";
         String event_id=Integer.toString(event.getEvent_id());
 
         @Override
@@ -265,7 +266,7 @@ String suggestion_url="https://maps.googleapis.com/maps/api/place/nearbysearch/j
             String type=params[0];
 
 if(type.equals("Plotting")) {
-    if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
+    if (!(LoginActivity.isReachable(MainActivity.server_ip, 80, 500))) {
         return "Not Connected or Server Down or No Signal";
     }
 
@@ -383,7 +384,7 @@ if(type.equals("ChangeLocation"))
     String latitude=params[1];
     String longitude=params[2];
 
-    if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
+    if (!(LoginActivity.isReachable("1.168.0.3", 80, 500))) {
         return "Not Connected or Server Down or No Signal";
     }
     try {

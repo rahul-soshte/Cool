@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.GClasses.Things;
 
@@ -99,7 +100,7 @@ this.things=things;
         String JSON_STRING;
         ArrayList<Things> value_array=new ArrayList<Things>();
 
-        String findthings_url="http://192.168.0.3/Planmap/find_things.php";
+        String findthings_url="http://"+ MainActivity.server_ip+"/Planmap/find_things.php";
         HttpHandler sh=new HttpHandler();
 
         @Override
@@ -114,7 +115,7 @@ this.things=things;
 
             try {
 
-                if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
+                if (!(LoginActivity.isReachable(MainActivity.server_ip, 80, 500))) {
                     return value_array;
                 }
                 URL url = new URL(findthings_url);

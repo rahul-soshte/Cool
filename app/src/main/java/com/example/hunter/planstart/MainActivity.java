@@ -15,14 +15,14 @@ import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.TabLayout.Pager;
 
 import java.util.HashMap;
-
+git
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     //SessionManager instance
     SessionManager session;
-
     //This is our tablayout
     private TabLayout tabLayout;
 
+    public static String server_ip="192.168.0.3";
     //This is our viewPager
     private ViewPager viewPager;
 

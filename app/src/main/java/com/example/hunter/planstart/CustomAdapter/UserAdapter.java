@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.HttpHandler;
 import com.example.hunter.planstart.Login.LoginActivity;
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.User.UserOne;
 
@@ -95,7 +96,7 @@ public class UserAdapter extends ArrayAdapter {
         String JSON_STRING;
         ArrayList<UserOne> value_array=new ArrayList<UserOne>();
 
-        String addpeep_url="http://192.168.0.3/Planmap/add_peep.php";
+        String addpeep_url="http://"+ MainActivity.server_ip+"/Planmap/add_peep.php";
         HttpHandler sh=new HttpHandler();
 
         @Override
@@ -110,7 +111,7 @@ public class UserAdapter extends ArrayAdapter {
 
             try {
 
-                if (!(LoginActivity.isReachable("192.168.0.3", 80, 500))) {
+                if (!(LoginActivity.isReachable(MainActivity.server_ip , 80 , 500))) {
                     return value_array;
                 }
                 URL url = new URL(addpeep_url);

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.hunter.planstart.BackgroundWorker;
 import com.example.hunter.planstart.HttpHandler;
+import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
 
 import java.io.IOException;
@@ -123,12 +124,12 @@ HttpHandler sh=new HttpHandler();
         @Override
         protected String doInBackground(String... params) {
 
-            String checkusername_url="http://192.168.0.3/Planmap/checkusername.php";
+            String checkusername_url="http://"+ MainActivity.server_ip+"/Planmap/checkusername.php";
                 String username=params[0];
 
                 try {
 
-                    if (!(LoginActivity.isReachable("192.168.0.3",80,500)))
+                    if (!(LoginActivity.isReachable(MainActivity.server_ip,80,500)))
                     {
                         return "Not Connected or Server Down or No Signal";
 
