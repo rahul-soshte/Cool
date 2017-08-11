@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -66,7 +67,13 @@ public class ListRenters extends AppCompatActivity {
 
         // email
         user_email = user.get(SessionManager.KEY_EMAIL);
-
+        BuyRent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(ListRenters.this,ProductDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
         new LOL().execute();
         //img = (ImageView) findViewById(R.id.img);
 

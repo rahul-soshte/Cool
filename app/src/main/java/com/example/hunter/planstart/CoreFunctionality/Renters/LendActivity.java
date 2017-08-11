@@ -102,8 +102,10 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void uploadMultipart() {
+
         String ProductDescription=proddesc.getText().toString().trim();
         String Contact=contactNo.getText().toString().trim();
+
         //getting name for the image
         String name = ProductName.getText().toString().trim();
         //Getting Rent Value
