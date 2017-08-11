@@ -71,7 +71,10 @@ public class ListRenters extends AppCompatActivity {
         BuyRent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               RentedThings rentedThings=(RentedThings)adapterView.getItemAtPosition(i);
+                //intent.putExtra("ThingObject",things);
                 Intent intent=new Intent(ListRenters.this,ProductDetailsActivity.class);
+                intent.putExtra("RentedThingObject",rentedThings);
                 startActivity(intent);
             }
         });
@@ -134,8 +137,10 @@ public class ListRenters extends AppCompatActivity {
                         Double rentperday=c.getDouble("rentperday");
                         int user_id=c.getInt("user_id");
                         String username=c.getString("username");
+                        String prodesc=c.getString("proddesc");
+                        String contactno=c.getString("usercontact");
 
-                        RentedThings rentedThings=new RentedThings(name,prodimageurl,rentperday,user_id,username);
+                        RentedThings rentedThings=new RentedThings(name,prodimageurl,rentperday,user_id,username,prodesc,contactno);
                         value_array.add(rentedThings);
                     }
                 }catch(final JSONException e)

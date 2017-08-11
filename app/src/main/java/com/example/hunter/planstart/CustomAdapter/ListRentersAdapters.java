@@ -93,7 +93,7 @@ ArrayList<RentedThings> rentedThings;
         return v;
     }
 
-    class MyTask extends AsyncTask<String, Void, Bitmap> {
+    public class MyTask extends AsyncTask<String, Void, Bitmap> {
       //  @Override
     //    protected void onPreExecute() {
         //    progressBar.setVisibility(View.VISIBLE);

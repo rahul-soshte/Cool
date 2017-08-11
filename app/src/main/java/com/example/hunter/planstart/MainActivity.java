@@ -15,7 +15,7 @@ import com.example.hunter.planstart.Login.SessionManager;
 import com.example.hunter.planstart.TabLayout.Pager;
 
 import java.util.HashMap;
-git
+
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     //SessionManager instance
     SessionManager session;
