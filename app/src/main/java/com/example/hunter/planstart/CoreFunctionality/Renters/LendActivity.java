@@ -45,7 +45,8 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView imageView;
     private Button selectButton;
     private EditText rentPerDay;
-
+    private EditText proddesc;
+    private EditText contactNo;
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -78,6 +79,8 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
         imageView=(ImageView)findViewById(R.id.imageView);
         selectButton=(Button)findViewById(R.id.selectbutton);
         rentPerDay=(EditText)findViewById(R.id.rentPerDay);
+        proddesc=(EditText)findViewById(R.id.desc);
+        contactNo=(EditText)findViewById(R.id.editText2);
         //Setting OnClickListener
         DoneButton.setOnClickListener(this);
         selectButton.setOnClickListener(this);
@@ -99,6 +102,8 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void uploadMultipart() {
+        String ProductDescription=proddesc.getText().toString().trim();
+        String Contact=contactNo.getText().toString().trim();
         //getting name for the image
         String name = ProductName.getText().toString().trim();
         //Getting Rent Value
@@ -116,6 +121,8 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
                     .addParameter("name", name) //Adding text parameter to the request
                     .addParameter("rentperday",Double.toString(rentperday))//Adding rentperday parameter
                     .addParameter("user_email",email)
+                    .addParameter("contactno",Contact)
+                    .addParameter("productdesc",ProductDescription)
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload

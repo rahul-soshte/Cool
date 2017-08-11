@@ -77,11 +77,11 @@
             android:name=".CoreFunctionality.Renters.ListRenters"
             android:label="Rent"
             android:theme="@style/AppTheme" />
-        <activity android:name=".CoreFunctionality.Renters.LendActivity"
+        <activity
+            android:name=".CoreFunctionality.Renters.LendActivity"
             android:label="Lend And Earn"
-            android:theme="@style/AppTheme"
-            />
-
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CoreFunctionality.Renters.ProductDetailsActivity"></activity>
     </application>
 
 </manifest>
