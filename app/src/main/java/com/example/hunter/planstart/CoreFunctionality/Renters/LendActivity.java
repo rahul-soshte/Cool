@@ -86,6 +86,9 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
         selectButton.setOnClickListener(this);
 
     }
+
+
+
     //Requesting permission
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
@@ -125,14 +128,14 @@ public class LendActivity extends AppCompatActivity implements View.OnClickListe
                     .addParameter("user_email",email)
                     .addParameter("contactno",Contact)
                     .addParameter("productdesc",ProductDescription)
-                    .setNotificationConfig(new UploadNotificationConfig())
+                    .setNotificationConfig((new UploadNotificationConfig()).setTitle("AD Upload").setCompletedMessage("Ad Uploaded Successfully"))
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
-
         } catch (Exception exc) {
             Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
 
     //method to show file chooser
     private void showFileChooser() {

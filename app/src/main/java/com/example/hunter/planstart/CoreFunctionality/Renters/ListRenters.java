@@ -82,6 +82,8 @@ public class ListRenters extends AppCompatActivity {
         //img = (ImageView) findViewById(R.id.img);
 
     }
+
+
     private class LOL extends AsyncTask<String,Void,String>
     {
         String JSON_STRING;

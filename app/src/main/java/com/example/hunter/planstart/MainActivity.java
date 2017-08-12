@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     //This is our tablayout
     private TabLayout tabLayout;
 
-    public static String server_ip="192.168.0.3";
+    public static String server_ip="192.168.0.4";
     //This is our viewPager
     private ViewPager viewPager;
 
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -95,23 +96,22 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         if (id == R.id.action_settings) {
             return true;
         }
-
         if(id==R.id.action_new_event)
         {
             Intent intent=new Intent(MainActivity.this, CreateEventActivity.class);
             startActivity(intent);
         }
+
         if(id==R.id.action_log_out)
         {
             session.logoutUser();
         }
+
         if(id==R.id.action_lend)
         {
             Intent intent=new Intent(MainActivity.this, LendActivity.class);
             startActivity(intent);
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
     }
+
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
     }

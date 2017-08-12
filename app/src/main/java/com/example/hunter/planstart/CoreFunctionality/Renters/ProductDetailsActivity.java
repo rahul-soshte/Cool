@@ -45,6 +45,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ContactNo.setText(rentedThings.getContactno());
         rentPerDay.setText(Double.toString(rentedThings.getRentperday()));
 
+
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
         Bitmap bitmap= null;
         try {
             bitmap = new MyTask().execute(rentedThings.getProductimageurl()).get();
@@ -55,7 +63,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
         imageView.setImageBitmap(bitmap);
 
+
     }
+
     public class MyTask extends AsyncTask<String, Void, Bitmap> {
         //  @Override
         //    protected void onPreExecute() {
@@ -82,7 +92,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 //            progressBar.setVisibility(View.GONE);
         //  return bitmap;
         // img.setImageBitmap(bitmap);
-
         //}
     }
 }
