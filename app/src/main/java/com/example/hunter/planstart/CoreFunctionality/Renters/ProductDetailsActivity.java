@@ -89,6 +89,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         //  return bitmap;
         // img.setImageBitmap(bitmap);
         //}
+
+
         @Override
         protected void onPostExecute(Bitmap bitmap)
         {
