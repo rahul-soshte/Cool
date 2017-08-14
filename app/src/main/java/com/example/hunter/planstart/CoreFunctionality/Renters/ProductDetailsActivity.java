@@ -44,8 +44,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ProductName.setText(rentedThings.getProdname());
         ContactNo.setText(rentedThings.getContactno());
         rentPerDay.setText(Double.toString(rentedThings.getRentperday()));
-
-
     }
 
     @Override
@@ -53,17 +51,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        Bitmap bitmap= null;
+        //Bitmap bitmap= null;
         try {
-            bitmap = new MyTask().execute(rentedThings.getProductimageurl()).get();
+             new MyTask().execute(rentedThings.getProductimageurl()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        imageView.setImageBitmap(bitmap);
-
-
+    //    imageView.setImageBitmap(bitmap);
     }
 
     public class MyTask extends AsyncTask<String, Void, Bitmap> {
@@ -93,5 +89,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         //  return bitmap;
         // img.setImageBitmap(bitmap);
         //}
+        @Override
+        protected void onPostExecute(Bitmap bitmap)
+        {
+            imageView.setImageBitmap(bitmap);
+        }
     }
 }
