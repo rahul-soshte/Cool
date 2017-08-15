@@ -26,6 +26,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     TextView ContactNo;
     TextView rentPerDay;
     ImageView imageView;
+    TextView Seller;
     RentedThings rentedThings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         ContactNo=(TextView)findViewById(R.id.textView8);
         rentPerDay=(TextView)findViewById(R.id.textView7);
         imageView=(ImageView)findViewById(R.id.imageView);
-
+        Seller=(TextView)findViewById(R.id.textView13);
         Intent intent=getIntent();
         rentedThings=(RentedThings)intent.getSerializableExtra("RentedThingObject");
         Description.setText(rentedThings.getProdesc());
         ProductName.setText(rentedThings.getProdname());
         ContactNo.setText(rentedThings.getContactno());
         rentPerDay.setText(Double.toString(rentedThings.getRentperday()));
+        Seller.setText(rentedThings.getusername());
     }
 
     @Override
