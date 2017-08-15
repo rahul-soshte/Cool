@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.hunter.planstart.CoreFunctionality.DirectionsVen.DirectionsToTheVenue;
 import com.example.hunter.planstart.CoreFunctionality.GetCenter;
 import com.example.hunter.planstart.CoreFunctionality.Renting;
 import com.example.hunter.planstart.Events.EventParticipantDetails;
@@ -85,6 +86,12 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
             Intent myIntent = new Intent(getApplicationContext(),Renting.class);
              myIntent.putExtra("EventObject",event);
                 startActivity(myIntent);
+        }
+        if(id==1)
+        {
+            Intent myIntent = new Intent(getApplicationContext(),DirectionsToTheVenue.class);
+            myIntent.putExtra("EventObject",event);
+            startActivity(myIntent);
         }
     }
 
