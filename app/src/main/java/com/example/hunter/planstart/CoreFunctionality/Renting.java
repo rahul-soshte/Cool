@@ -1,7 +1,9 @@
 package com.example.hunter.planstart.CoreFunctionality;
 
+
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +12,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
 import com.example.hunter.planstart.CoreFunctionality.Renters.ListRenters;
 import com.example.hunter.planstart.CustomAdapter.ThingsAdapter;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.GClasses.Things;
-
 import java.util.ArrayList;
-
 import static android.support.constraint.R.id.parent;
 
 public class Renting extends AppCompatActivity {
@@ -26,11 +25,15 @@ public class Renting extends AppCompatActivity {
     ImageButton pushDownButton;
     Button DoneButton;
     ArrayList<Things> ToBeBorrowed=new ArrayList<>();
-
+    EventsOne event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_renting);
+
+        Intent intent=getIntent();
+        event=(EventsOne) intent.getSerializableExtra("EventObject");
+
         final ThingsAdapter adapter = new ThingsAdapter(this,android.R.layout.simple_dropdown_item_1line);
         lvborrow=(ListView)findViewById(R.id.borrowList);
         pushDownButton=(ImageButton)findViewById(R.id.pushdownbutton);
@@ -39,6 +42,7 @@ public class Renting extends AppCompatActivity {
         actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView2);
         actv.setTextColor(Color.BLACK);
         actv.setAdapter(adapter);
+
 
         actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,7 +78,22 @@ lvborrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         startActivity(intent);
     }
 });
-    }
 
+  //      DoneButton.setOnClickListener(new View.OnClickListener() {
+    //        @Override
+      //      public void onClick(View view) {
+        //        new SendReqList().execute();
+         //   }
+        //});
+    }
+/*
+private class SendReqList extends AsyncTask<Void,Void,Void>{
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        return null;
+    }
+}
+*/
 
 }

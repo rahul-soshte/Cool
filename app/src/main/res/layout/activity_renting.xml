@@ -46,23 +46,12 @@
         android:id="@+id/pushdownbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/autoCompleteTextView2"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/autoCompleteTextView2"
         android:background="@color/white"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/btn_click"
-        android:layout_below="@+id/button3" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/borrowList"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/black"
-        android:layout_toEndOf="@+id/autoCompleteTextView2"
-        android:textStyle="bold"
-        android:text="Quantity" />
+        android:layout_below="@+id/button3"
+        android:layout_alignBottom="@+id/autoCompleteTextView2" />
 
 </RelativeLayout>

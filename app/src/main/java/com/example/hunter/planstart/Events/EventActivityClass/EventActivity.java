@@ -85,12 +85,20 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         {
             Intent myIntent = new Intent(getApplicationContext(),Renting.class);
              myIntent.putExtra("EventObject",event);
+
                 startActivity(myIntent);
         }
         if(id==1)
         {
             Intent myIntent = new Intent(getApplicationContext(),DirectionsToTheVenue.class);
             myIntent.putExtra("EventObject",event);
+            startActivity(myIntent);
+        }
+        if(id==2)
+        {
+            Intent myIntent = new Intent(getApplicationContext(),GetCenter.class);
+            myIntent.putExtra("EventObject",event);
+
             startActivity(myIntent);
         }
     }
