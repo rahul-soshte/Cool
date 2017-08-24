@@ -79,21 +79,26 @@ lvborrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     }
 });
 
-  //      DoneButton.setOnClickListener(new View.OnClickListener() {
-    //        @Override
-      //      public void onClick(View view) {
-        //        new SendReqList().execute();
-         //   }
-        //});
+   /*  DoneButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+                new SendReqList().execute();
+            }
+        });
     }
+    */
+
 /*
 private class SendReqList extends AsyncTask<Void,Void,Void>{
 
     @Override
     protected Void doInBackground(Void... voids) {
         return null;
+
     }
+
 }
 */
 
 }
+    }

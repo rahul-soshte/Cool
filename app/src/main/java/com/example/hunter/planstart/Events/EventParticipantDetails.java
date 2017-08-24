@@ -161,7 +161,6 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
                     }
                 });
             }
-
             return "cool";
         }
         @Override
@@ -171,12 +170,11 @@ TextView tv=(TextView)findViewById(R.id.addpeep);
             {
                 adapter = new UserAdapter(getApplicationContext(),R.layout.user_add_peep, value_array);
                 listView.setAdapter(adapter);
-
             }
+
             if(result.equals("Not Connected or Server Down or No Signal")) {
                 Toast.makeText(getApplicationContext(),"Not Connected or Server Down or No Signal", Toast.LENGTH_LONG).show();
             }
-
         }
     }
 
