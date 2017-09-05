@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class EventParticipantDetails2 extends AppCompatActivity {
@@ -72,7 +73,8 @@ public class EventParticipantDetails2 extends AppCompatActivity {
     private void requestJsonObject(){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.0.7/Planmap/listpeep.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Response " + response);
@@ -88,7 +90,16 @@ public class EventParticipantDetails2 extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "Error " + error.getMessage());
             }
-        });
+        }){
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("event_id",Integer.toString(event.getEvent_id()));
+                return params;
+            }
+        };
         queue.add(stringRequest);
     }
 }

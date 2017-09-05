@@ -33,8 +33,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerViewHolders holder, int position) {
-        holder.fname.setText(itemList.get(position).getFirstName());
-        holder.lname.setText(itemList.get(position).getLastName());
+        holder.fname.setText(itemList.get(position).getFirstName()+" ");
+        holder.lname.setText(itemList.get(position).getLastName() + " ");
         holder.username.setText(itemList.get(position).getUsername());
     }
 
