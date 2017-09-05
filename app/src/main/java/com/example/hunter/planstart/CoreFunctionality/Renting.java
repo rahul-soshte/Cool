@@ -17,6 +17,9 @@ import com.example.hunter.planstart.CustomAdapter.ThingsAdapter;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.R;
 import com.example.hunter.planstart.GClasses.Things;
+
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import static android.support.constraint.R.id.parent;
 
@@ -79,26 +82,28 @@ lvborrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     }
 });
 
-   /*  DoneButton.setOnClickListener(new View.OnClickListener() {
+     DoneButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
                 new SendReqList().execute();
+
             }
         });
     }
-    */
 
-/*
+
 private class SendReqList extends AsyncTask<Void,Void,Void>{
 
     @Override
     protected Void doInBackground(Void... voids) {
+        JSONArray jsonArray= new JSONArray();
+        for (int i=0; i < ToBeBorrowed.size(); i++) {
+            jsonArray.put(ToBeBorrowed.get(i).getJSONObject());
+        }
         return null;
-
     }
 
 }
-*/
 
 }
-    }
+

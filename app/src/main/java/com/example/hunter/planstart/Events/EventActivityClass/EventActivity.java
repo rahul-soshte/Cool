@@ -14,6 +14,7 @@ import com.example.hunter.planstart.CoreFunctionality.DirectionsVen.DirectionsTo
 import com.example.hunter.planstart.CoreFunctionality.GetCenter;
 import com.example.hunter.planstart.CoreFunctionality.Renting;
 import com.example.hunter.planstart.Events.EventParticipantDetails;
+import com.example.hunter.planstart.Events.EventParticipantDetails2;
 import com.example.hunter.planstart.Events.EventsOne;
 import com.example.hunter.planstart.MainActivity;
 import com.example.hunter.planstart.R;
@@ -46,7 +47,7 @@ public class EventActivity extends AppCompatActivity implements TabLayout.OnTabS
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(EventActivity.this, EventParticipantDetails.class);
+                Intent intent=new Intent(EventActivity.this,EventParticipantDetails2.class);
 
                 intent.putExtra("EventObject",event);
                 startActivity(intent);

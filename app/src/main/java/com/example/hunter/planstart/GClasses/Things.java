@@ -1,5 +1,9 @@
 package com.example.hunter.planstart.GClasses;
 
+import android.os.Trace;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
@@ -49,5 +53,16 @@ public class Things implements Serializable{
     //public void setType(int type) {
       //  this.mType = type;
     //}
+    public JSONObject getJSONObject() {
+        JSONObject obj = new JSONObject();
+
+        try {
+            obj.put("name", name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
 
 }

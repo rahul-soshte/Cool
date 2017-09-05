@@ -45,7 +45,7 @@
             android:name=".Events.EventActivityClass.EventActivity"
             android:label="Event Name" />
         <activity
-            android:name=".Events.EventParticipantDetails"
+            android:name=".Events.EventParticipantDetails2"
             android:label="@string/title_activity_event_participant_details"
             android:theme="@style/AppTheme.Dark" />
         <activity android:name=".User.AddPeopleActivity" />

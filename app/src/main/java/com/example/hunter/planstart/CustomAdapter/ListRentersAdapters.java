@@ -115,12 +115,13 @@ ArrayList<RentedThings> rentedThings;
         }
 
        // @Override
-        //protected void onPostExecute(Bitmap bitmap) {
+     //   protected void onPostExecute(Bitmap bitmap) {
 //            progressBar.setVisibility(View.GONE);
           //  return bitmap;
            // img.setImageBitmap(bitmap);
 
         //}
+
     }
 
 

@@ -3,20 +3,31 @@ package com.example.hunter.planstart.User;
 /**
  * Created by hunter on 4/5/17.
  */
+import com.google.gson.annotations.SerializedName;
 
 public class UserOne {
 
+
+    @SerializedName("user_id")
     public int user_id;
 
+    @SerializedName("fname")
     public String firstname;
+    
+    @SerializedName("lname")
     public String lastname;
 
+    @SerializedName("GpsLat")
     public double GpsLat;
+    @SerializedName("GpsLong")
     public double GpsLong;
     //public int contactno;
-
+    @SerializedName("email_id")
     public String email_id;
+    @SerializedName("password")
     public String password;
+
+    @SerializedName("username")
     String username;
 
     public UserOne(int user_id,String firstname,String lastname, String email_id,String username,String password)
