@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     //This is our tablayout
     private TabLayout tabLayout;
 
-    public static String server_ip="192.168.0.7";
+    public static String server_ip="192.168.0.4";
     //This is our viewPager
     private ViewPager viewPager;
 

@@ -116,7 +116,6 @@ private ArrayList<PlaceType> place_choosen_type_list=new ArrayList<>();
     }
     private void checkButtonClick() {
 
-
         Button myButton = (Button) findViewById(R.id.findSelected);
         myButton.setOnClickListener(new View.OnClickListener() {
 

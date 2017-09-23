@@ -72,7 +72,7 @@ public class EventParticipantDetails2 extends AppCompatActivity {
     }
     private void requestJsonObject(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.0.7/Planmap/listpeep.php";
+        String url ="http://"+MainActivity.server_ip+"/Planmap/listpeep.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
 
             @Override

@@ -59,8 +59,8 @@ import java.util.HashMap;
 //Google Places Android API Key
 // AIzaSyCvEmzifwbu6O3GuCMy8ONEtDJ0EfvapiE
 public class GetCenter extends AppCompatActivity implements OnMapReadyCallback {
-Button EditLocationButton;
-SessionManager session;
+    Button EditLocationButton;
+    SessionManager session;
     String user_email;
 
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
